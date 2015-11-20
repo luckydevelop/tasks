@@ -47,7 +47,7 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="annotatedClasses">
 			<beans:list>
-				<beans:value>com.journaldev.spring.model.Person</beans:value>
+				<beans:value>com.oleg.spring.model.Person</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -59,12 +59,12 @@
 		</beans:property>
 	</beans:bean>
 	
-	<beans:bean id="personDAO" class="com.journaldev.spring.dao.PersonDAOImpl">
+	<beans:bean id="personDAO" class="com.oleg.spring.dao.PersonDAOImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 
 
-	<beans:bean id="personService" class="com.journaldev.spring.service.PersonServiceImpl">
+	<beans:bean id="personService" class="com.oleg.spring.service.PersonServiceImpl">
 		<beans:property name="personDAO" ref="personDAO"></beans:property>
 	</beans:bean>
 

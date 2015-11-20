@@ -5,14 +5,14 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
 <!-- 
-	<bean id="MyXMLApp" class="com.journaldev.spring.di.consumer.MyXMLApplication">
+	<bean id="MyXMLApp" class="MyXMLApplication">
 		<constructor-arg>
-			<bean class="com.journaldev.spring.di.services.TwitterService" />
+			<bean class="TwitterService" />
 		</constructor-arg>
 	</bean>
 -->
-	<bean id="twitter" class="com.journaldev.spring.di.services.TwitterService"></bean>
-	<bean id="MyXMLApp" class="com.journaldev.spring.di.consumer.MyXMLApplication">
+	<bean id="twitter" class="com.oleg.spring.di.services.TwitterService"></bean>
+	<bean id="MyXMLApp" class="com.oleg.spring.di.consumer.MyXMLApplication">
 		<property name="service" ref="twitter"></property>
 	</bean>
 </beans>

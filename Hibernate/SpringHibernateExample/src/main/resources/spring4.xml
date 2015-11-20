@@ -21,7 +21,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.journaldev.model.Person</value>
+				<value>com.oleg.model.Person</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -34,7 +34,7 @@
 	</bean>
 
 	
-	<bean id="personDAO" class="com.journaldev.dao.PersonDAOImpl">
+	<bean id="personDAO" class="com.oleg.dao.PersonDAOImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 </beans>

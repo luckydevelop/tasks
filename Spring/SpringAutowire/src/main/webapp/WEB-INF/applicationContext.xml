@@ -15,13 +15,13 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     <context:component-scan base-package="com.seostella.springautowire" />
     
-    <bean id="acService" class="com.seostella.springautowire.domain.AppcontextService" />
+    <bean id="acService" class="com.springautowire.domain.AppcontextService" />
     
-    <bean id="fooService1" class="com.seostella.springautowire.domain.FooService">
+    <bean id="fooService1" class="com.springautowire.domain.FooService">
         <property name="name" value="fooService1" />
     </bean>
  
-    <bean id="fooService2" class="com.seostella.springautowire.domain.FooService"
+    <bean id="fooService2" class="com.springautowire.domain.FooService"
         p:name="fooService2" />
     
 </beans>

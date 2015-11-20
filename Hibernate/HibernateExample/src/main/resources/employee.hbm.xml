@@ -3,7 +3,7 @@
 "http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.journaldev.hibernate.model.Employee" table="EMPLOYEE">
+	<class name="com.hibernate.model.Employee" table="EMPLOYEE">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="increment" />
