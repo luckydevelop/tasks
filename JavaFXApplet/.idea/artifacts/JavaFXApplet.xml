@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="JavaFXApplet">
+    <output-path>$PROJECT_DIR$/out/artifacts/JavaFXApplet</output-path>
+    <root id="root">
+      <element id="archive" name="JavaFXApplet.jar">
+        <element id="module-output" name="JavaFXApplet" />
+      </element>
+    </root>
+  </artifact>
+</component>
