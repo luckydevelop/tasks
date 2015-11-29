@@ -2,6 +2,11 @@
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/src/ua/luckydev/zadachki/Cats.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/luckydev/zadachki/Multiplication.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/luckydev/zadachki/SingleList/Badsolution.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/luckydev/zadachki/SingleList/InvertList.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/luckydev/zadachki/SingleList/ListElement.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/luckydev/zadachki/SingleList/SingleList.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/ua/luckydev/zadachki/Threads.java" charset="UTF-8" />
   </component>
 </project>

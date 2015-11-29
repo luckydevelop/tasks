@@ -6,14 +6,14 @@ package ua.luckydev.zadachki.SingleList;
 /*
 public class Badsolution
 {
-    public class InvertList() // () - ??????
+    public class InvertList() // () - Лишние
     {
         public static void Main (String args[]) // - (String[] args)
 
         {
-            SingleList sl = new SingleList(); //???? ??????????? ????????????? ??????
+            SingleList sl = new SingleList(); //взял вымешленный односвязанный список
 
-            sl.add(1); //??????? ????????
+            sl.add(1); //добавил элементы
             sl.add(2);
             sl.add(3);
             sl.add(4);
@@ -34,7 +34,7 @@ public class Badsolution
 
         tail.next = null;
 
-        // ??? return
+        // нет return
     }
 
     public ListElement findTail(SingleList sl, ListElement tail )
