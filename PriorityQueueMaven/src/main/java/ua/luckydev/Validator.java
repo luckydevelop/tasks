@@ -5,10 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 // В данном классе проходит валидация сообщения
-public class Validator
+class Validator
 {
 
-    public static boolean validation(String[] arrayMessage)
+    static boolean validation(String[] arrayMessage)
     {
         if ((arrayMessage.length == 6) && (arrayMessage[0].equals("InstructionMessage")) && (checkInstructionType(arrayMessage[1])) &&
                 (checkProductCode(arrayMessage[2]) && checkQuantity(arrayMessage[3]) && checkUOM(arrayMessage[4]) && checkDate(arrayMessage[5])))
@@ -17,7 +17,7 @@ public class Validator
         else return false;
     }
 
-    public static boolean checkProductCode(String productCode) //String of form AB12 (two uppercase letters followed by two digits)
+    static boolean checkProductCode(String productCode) //String of form AB12 (two uppercase letters followed by two digits)
     {
         if (productCode.matches("[A-Z]{2}\\d{2}"))
         {
@@ -25,7 +25,7 @@ public class Validator
         } else return false;
     }
 
-    public static boolean checkInstructionType(String instruction) //One of A, B, C or D
+    static boolean checkInstructionType(String instruction) //One of A, B, C or D
     {
         if (instruction.matches("[A|B|C|D]{1}"))
         {
@@ -33,7 +33,7 @@ public class Validator
         } else return false;
     }
 
-    public static boolean checkQuantity(String quantityString)  //Integer, 0 < n
+    static boolean checkQuantity(String quantityString)  //Integer, 0 < n
     {
         if (quantityString.matches("\\d{1,10}"))
         {
@@ -43,7 +43,7 @@ public class Validator
         } else return false;
     }
 
-    public static boolean checkUOM(String uomString)   //Integer, 0 <= n < 256
+    static boolean checkUOM(String uomString)   //Integer, 0 <= n < 256
     {
         if (uomString.matches("\\d{1,3}"))
         {
@@ -53,7 +53,7 @@ public class Validator
         } else return false;
     }
 
-    public static boolean checkDate(String dateString) //Unix epoch < t <= current time
+    static boolean checkDate(String dateString) //Unix epoch < t <= current time
     {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 

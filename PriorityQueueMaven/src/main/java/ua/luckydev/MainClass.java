@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Just testing
-public class MainClass
+class MainClass
 {
     public static void main(String[] args)
     {
@@ -29,8 +29,7 @@ public class MainClass
         for (String s : messageList)
         {
             new MessageReceiverImpl().receive(s);
-            if(MessageReceiverImpl.validMessage)
-                instructionQueue.enqueue(MessageReceiverImpl.instructionMessage);
+            instructionQueue.enqueue(MessageReceiverImpl.instructionMessage);
             System.out.println(s);
         }
 
@@ -48,7 +47,5 @@ public class MainClass
            InstructionMessage is = instructionQueue.dequeue();
             System.out.println(is);
         }
-
    }
-
 }

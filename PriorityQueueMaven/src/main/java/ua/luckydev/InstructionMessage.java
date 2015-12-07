@@ -3,18 +3,22 @@ package ua.luckydev;
 import java.util.Date;
 
 //Класс в котором непосредственно хранится распарсинное сообщение
-public class InstructionMessage implements Comparable<InstructionMessage>
+class InstructionMessage implements Comparable<InstructionMessage>
 {
-    String message;
-    String instructionType;
-    String productCode;
-    Integer quantity;
-    Integer uom;
-    Date timestamp;
-    Long timeStampQueue; //используем для того, чтобы было ФИФО для сообщений с одинаковым instructionType
-    static int count;
+    private String message;
+    private String instructionType;
+    private String productCode;
+    private Integer quantity;
+    private Integer uom;
+    private Date timestamp;
+    private Long timeStampQueue; //используем для того, чтобы было ФИФО для сообщений с одинаковым instructionType
 
-    public InstructionMessage(String message, String instructionType, String productCode, Integer quantity, Integer uom, Date timestamp)
+    public void setTimeStampQueue(Long timeStampQueue)
+    {
+        this.timeStampQueue = timeStampQueue;
+    }
+
+    InstructionMessage(String message, String instructionType, String productCode, Integer quantity, Integer uom, Date timestamp)
     {
         this.message = message;
         this.instructionType = instructionType;
@@ -51,15 +55,6 @@ public class InstructionMessage implements Comparable<InstructionMessage>
                 ", timestamp=" + timestamp +
                 ", timeStampQueue=" + timeStampQueue +
                 '}';
-    }
-
-    public void count() //count для того, чтобы отличался timestamp по которому будет проходить доп. сортировка в Priority Queue
-    {
-        if(count==100)
-        {
-            count=0;
-        }
-        else count++;
     }
 }
 
