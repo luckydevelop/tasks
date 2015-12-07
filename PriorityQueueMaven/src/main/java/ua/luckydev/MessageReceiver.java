@@ -1,6 +1,6 @@
 package ua.luckydev;
 
-// Интерфейс, который нам надо реализовать
+// РРЅС‚РµСЂС„РµР№СЃ, РєРѕС‚РѕСЂС‹Р№ РЅР°Рј РЅР°РґРѕ СЂРµР°Р»РёР·РѕРІР°С‚СЊ
 public interface MessageReceiver
 {
     void receive(String message);

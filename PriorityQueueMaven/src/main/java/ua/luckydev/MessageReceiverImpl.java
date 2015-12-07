@@ -9,8 +9,8 @@ import java.util.Date;
  */
 public class MessageReceiverImpl implements MessageReceiver
 {
-    public static InstructionMessage instructionMessage; //тут будет храниться текущий экземпляр InstructionMessage, т.к.
-    static boolean validMessage = false; // метод receive возвращает - void
+    public static InstructionMessage instructionMessage; //С‚СѓС‚ Р±СѓРґРµС‚ С…СЂР°РЅРёС‚СЊСЃСЏ С‚РµРєСѓС‰РёР№ СЌРєР·РµРјРїР»СЏСЂ InstructionMessage, С‚.Рє.
+    static boolean validMessage = false; // РјРµС‚РѕРґ receive РІРѕР·РІСЂР°С‰Р°РµС‚ - void
 
     public void createInstance(String[] arrayMessage)
     {
@@ -21,27 +21,25 @@ public class MessageReceiverImpl implements MessageReceiver
             instructionMessage = new InstructionMessage(arrayMessage[0], arrayMessage[1], arrayMessage[2],
               new Integer(arrayMessage[3]), new Integer(arrayMessage[4]), simpleDateFormat.parse(arrayMessage[5]));
         }
-        catch (ParseException e) //ловим исключение, которое требует обработать SimpleDateFormat
+        catch (ParseException e) //Р»РѕРІРёРј РёСЃРєР»СЋС‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С‚СЂРµР±СѓРµС‚ РѕР±СЂР°Р±РѕС‚Р°С‚СЊ SimpleDateFormat
         {
             e.printStackTrace();
         }
     }
 
-
-    @Override
-    public void receive(String message) //This method should build an instance of type InstructionMessage
+        public void receive(String message) //This method should build an instance of type InstructionMessage
     {
         String[] arrayMessage = message.split(" ");
 
-            if (Validator.validation(arrayMessage)) //проверяем валидно ли сообщение
+            if (Validator.validation(arrayMessage)) //РїСЂРѕРІРµСЂСЏРµРј РІР°Р»РёРґРЅРѕ Р»Рё СЃРѕРѕР±С‰РµРЅРёРµ
             {
-                createInstance(arrayMessage); //создаём объект InstructionMessage
-                validMessage = true; //при успешной проверки присваиваем значени переменной в true
+                createInstance(arrayMessage); //СЃРѕР·РґР°С‘Рј РѕР±СЉРµРєС‚ InstructionMessage
+                validMessage = true; //РїСЂРё СѓСЃРїРµС€РЅРѕР№ РїСЂРѕРІРµСЂРєРё РїСЂРёСЃРІР°РёРІР°РµРј Р·РЅР°С‡РµРЅРё РїРµСЂРµРјРµРЅРЅРѕР№ РІ true
             }
             else
             {
                 validMessage = false;
-                //Если валидация не пройдена, то выбрасывается исключение
+                //Р•СЃР»Рё РІР°Р»РёРґР°С†РёСЏ РЅРµ РїСЂРѕР№РґРµРЅР°, С‚Рѕ РІС‹Р±СЂР°СЃС‹РІР°РµС‚СЃСЏ РёСЃРєР»СЋС‡РµРЅРёРµ
                 throw new IllegalArgumentException("Invalid InstructionMessage. Please check you InstructionMessage");
             }
     }

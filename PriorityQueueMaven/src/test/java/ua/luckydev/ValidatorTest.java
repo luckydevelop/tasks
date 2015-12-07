@@ -7,7 +7,7 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
-//Тести методы нашего Валидатора
+//РўРµСЃС‚Рё РјРµС‚РѕРґС‹ РЅР°С€РµРіРѕ Р’Р°Р»РёРґР°С‚РѕСЂР°
 public class ValidatorTest
 {
     Validator validator = new Validator();

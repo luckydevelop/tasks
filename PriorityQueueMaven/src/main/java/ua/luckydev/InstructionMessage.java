@@ -2,7 +2,7 @@ package ua.luckydev;
 
 import java.util.Date;
 
-//Класс в котором непосредственно хранится распарсинное сообщение
+//РљР»Р°СЃСЃ РІ РєРѕС‚РѕСЂРѕРј РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ С…СЂР°РЅРёС‚СЃСЏ СЂР°СЃРїР°СЂСЃРёРЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 public class InstructionMessage implements Comparable<InstructionMessage>
 {
     String message;
@@ -11,7 +11,7 @@ public class InstructionMessage implements Comparable<InstructionMessage>
     Integer quantity;
     Integer uom;
     Date timestamp;
-    Long timeStampQueue; //используем для того, чтобы было ФИФО для сообщений с одинаковым instructionType
+    Long timeStampQueue; //РёСЃРїРѕР»СЊР·СѓРµРј РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ Р±С‹Р»Рѕ Р¤РР¤Рћ РґР»СЏ СЃРѕРѕР±С‰РµРЅРёР№ СЃ РѕРґРёРЅР°РєРѕРІС‹Рј instructionType
     static int count;
 
     public InstructionMessage(String message, String instructionType, String productCode, Integer quantity, Integer uom, Date timestamp)
@@ -24,8 +24,8 @@ public class InstructionMessage implements Comparable<InstructionMessage>
         this.timestamp = timestamp;
     }
 
-    @Override
-    public int compareTo(InstructionMessage message) // Переопределяем метод согласно ТЗ
+   // @Override
+    public int compareTo(InstructionMessage message) // РџРµСЂРµРѕРїСЂРµРґРµР»СЏРµРј РјРµС‚РѕРґ СЃРѕРіР»Р°СЃРЅРѕ РўР—
     {
        int res;
 
@@ -40,7 +40,7 @@ public class InstructionMessage implements Comparable<InstructionMessage>
         return res;    }
 
     @Override
-    public String toString() // для удобства текстовое отображение класса
+    public String toString() // РґР»СЏ СѓРґРѕР±СЃС‚РІР° С‚РµРєСЃС‚РѕРІРѕРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РєР»Р°СЃСЃР°
     {
         return "InstructionMessage{" +
                 "message='" + message + '\'' +
@@ -53,7 +53,7 @@ public class InstructionMessage implements Comparable<InstructionMessage>
                 '}';
     }
 
-    public void count() //count для того, чтобы отличался timestamp по которому будет проходить доп. сортировка в Priority Queue
+    public void count() //count РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ РѕС‚Р»РёС‡Р°Р»СЃСЏ timestamp РїРѕ РєРѕС‚РѕСЂРѕРјСѓ Р±СѓРґРµС‚ РїСЂРѕС…РѕРґРёС‚СЊ РґРѕРї. СЃРѕСЂС‚РёСЂРѕРІРєР° РІ Priority Queue
     {
         if(count==100)
         {

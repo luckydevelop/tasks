@@ -4,26 +4,26 @@ import java.util.Date;
 import java.util.PriorityQueue;
 
 //public class InstructionQueue extends PriorityQueue
-// мотод boolean isEmpty() и InstructionMessage peek() не уже реализованы в PriorityQueue по-умолчанию
+// РјРѕС‚РѕРґ boolean isEmpty() Рё InstructionMessage peek() РЅРµ СѓР¶Рµ СЂРµР°Р»РёР·РѕРІР°РЅС‹ РІ PriorityQueue РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ
 public class InstructionQueue extends PriorityQueue<InstructionMessage>
 {
 
     //Adds a message to the queue
     public void enqueue(InstructionMessage message)
     {
-        message.timeStampQueue = new Date().getTime()+count(); //инициализируем поле, которое будет использоваться в
-        add(message);                           // сортировке для обеспечения ФИФО у объектов с одинаковым InstructionType
+        message.timeStampQueue = new Date().getTime()+count(); //РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РїРѕР»Рµ, РєРѕС‚РѕСЂРѕРµ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РІ
+        add(message);                           // СЃРѕСЂС‚РёСЂРѕРІРєРµ РґР»СЏ РѕР±РµСЃРїРµС‡РµРЅРёСЏ Р¤РР¤Рћ Сѓ РѕР±СЉРµРєС‚РѕРІ СЃ РѕРґРёРЅР°РєРѕРІС‹Рј InstructionType
     }
 
 
     //Removes the highest-priority message from the queue and returns it
     InstructionMessage dequeue()
     {
-        return poll(); //т.к. подобный метод уже реализовон, но с другим названием, перенаправляем вызов
+        return poll(); //С‚.Рє. РїРѕРґРѕР±РЅС‹Р№ РјРµС‚РѕРґ СѓР¶Рµ СЂРµР°Р»РёР·РѕРІРѕРЅ, РЅРѕ СЃ РґСЂСѓРіРёРј РЅР°Р·РІР°РЅРёРµРј, РїРµСЂРµРЅР°РїСЂР°РІР»СЏРµРј РІС‹Р·РѕРІ
     }
 
     //Returns the number of messages currently on the queue
-    int count()  //т.к. подобный метод уже реализовон, но с другим названием, перенаправляем вызов
+    int count()  //С‚.Рє. РїРѕРґРѕР±РЅС‹Р№ РјРµС‚РѕРґ СѓР¶Рµ СЂРµР°Р»РёР·РѕРІРѕРЅ, РЅРѕ СЃ РґСЂСѓРіРёРј РЅР°Р·РІР°РЅРёРµРј, РїРµСЂРµРЅР°РїСЂР°РІР»СЏРµРј РІС‹Р·РѕРІ
     {
         return size();
     }

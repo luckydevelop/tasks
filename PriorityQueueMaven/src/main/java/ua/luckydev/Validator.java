@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-// В данном классе проходит валидация сообщения
+// Р’ РґР°РЅРЅРѕРј РєР»Р°СЃСЃРµ РїСЂРѕС…РѕРґРёС‚ РІР°Р»РёРґР°С†РёСЏ СЃРѕРѕР±С‰РµРЅРёСЏ
 public class Validator
 {
 

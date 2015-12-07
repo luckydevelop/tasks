@@ -10,12 +10,12 @@ import ua.luckydev.InstructionMessage;
 import java.util.ArrayList;
 import java.util.List;
 
-//Тестируем класс InstructionQueue
+//РўРµСЃС‚РёСЂСѓРµРј РєР»Р°СЃСЃ InstructionQueue
 public class InstructionQueueTest
 {
     InstructionQueue instructionQueue = new InstructionQueue();
-    MessageReceiverImpl messageReceiver = new MessageReceiverImpl();//метод void receive этого класса создаёт объект InstructionMessage
-    InstructionMessage instructionMessageA;  //переменные для теста
+    MessageReceiverImpl messageReceiver = new MessageReceiverImpl();//РјРµС‚РѕРґ void receive СЌС‚РѕРіРѕ РєР»Р°СЃСЃР° СЃРѕР·РґР°С‘С‚ РѕР±СЉРµРєС‚ InstructionMessage
+    InstructionMessage instructionMessageA;  //РїРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ С‚РµСЃС‚Р°
     InstructionMessage instructionMessageD;
     InstructionMessage instructionMessageB;
     InstructionMessage instructionMessageC;
@@ -33,7 +33,7 @@ public class InstructionQueueTest
         assertEquals("Must be Zero messages", 0, numberMessages);// Tests method count()
 
         messageReceiver.receive("InstructionMessage A MZ01 5678 50 2015-03-05T10:04:56.012Z");
-        instructionMessageA=messageReceiver.instructionMessage; // инициализируем переменные
+        instructionMessageA=messageReceiver.instructionMessage; // РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РїРµСЂРµРјРµРЅРЅС‹Рµ
 
         messageReceiver.receive("InstructionMessage D MZ02 5678 50 2015-03-05T10:04:56.012Z");
         instructionMessageD=messageReceiver.instructionMessage;
@@ -47,7 +47,7 @@ public class InstructionQueueTest
         messageReceiver.receive("InstructionMessage A MZ05 5678 50 2015-03-05T10:04:56.012Z");
         instructionMessageA2=messageReceiver.instructionMessage;
 
-        instructionQueue.enqueue(instructionMessageA); //добавляем элементы в очередь
+        instructionQueue.enqueue(instructionMessageA); //РґРѕР±Р°РІР»СЏРµРј СЌР»РµРјРµРЅС‚С‹ РІ РѕС‡РµСЂРµРґСЊ
         instructionQueue.enqueue(instructionMessageD);
         instructionQueue.enqueue(instructionMessageB);
         instructionQueue.enqueue(instructionMessageC);
@@ -59,20 +59,20 @@ public class InstructionQueueTest
         numberMessages = instructionQueue.count();
         assertEquals("Must be 5 messages", 5, numberMessages);  // Tests method count() when Que is not empty
 
-        //в этот список будут добавляться сообщения из очереди путём получения последовательно вершин
+        //РІ СЌС‚РѕС‚ СЃРїРёСЃРѕРє Р±СѓРґСѓС‚ РґРѕР±Р°РІР»СЏС‚СЊСЃСЏ СЃРѕРѕР±С‰РµРЅРёСЏ РёР· РѕС‡РµСЂРµРґРё РїСѓС‚С‘Рј РїРѕР»СѓС‡РµРЅРёСЏ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РІРµСЂС€РёРЅ
         List<InstructionMessage> instructionMessagesList = new ArrayList<InstructionMessage>();
 
-       //сисок в котором будут сообщения в заранее отсортированном порядке
+       //СЃРёСЃРѕРє РІ РєРѕС‚РѕСЂРѕРј Р±СѓРґСѓС‚ СЃРѕРѕР±С‰РµРЅРёСЏ РІ Р·Р°СЂР°РЅРµРµ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅРѕРј РїРѕСЂСЏРґРєРµ
         List<InstructionMessage> instructionMessagesListSorted = new ArrayList<InstructionMessage>();
 
-        //заполняем список instructionMessagesListSorted
+        //Р·Р°РїРѕР»РЅСЏРµРј СЃРїРёСЃРѕРє instructionMessagesListSorted
         instructionMessagesListSorted.add(instructionMessageA);
         instructionMessagesListSorted.add(instructionMessageA2);
         instructionMessagesListSorted.add(instructionMessageB);
         instructionMessagesListSorted.add(instructionMessageD);
         instructionMessagesListSorted.add(instructionMessageC);
 
-        //заполняем список instructionMessagesList
+        //Р·Р°РїРѕР»РЅСЏРµРј СЃРїРёСЃРѕРє instructionMessagesList
         for (int i=instructionQueue.size(); i>0; i--)
         {
             instructionMessagesList.add(instructionQueue.dequeue());
