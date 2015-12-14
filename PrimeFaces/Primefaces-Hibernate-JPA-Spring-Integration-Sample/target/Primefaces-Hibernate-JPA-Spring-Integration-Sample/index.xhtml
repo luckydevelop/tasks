@@ -1,0 +1,38 @@
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<script name="jquery/jquery.js" library="primefaces"></script>
+		<title>Register Worker</title>
+	</h:head>
+
+	<p:dataTable value="#{registerWorker.workerList}" var="workerList">
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Worker FIO"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{workerList.fio}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Worker DateBirth"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{workerList.datebirth}"></h:outputText>
+		</p:column>
+	</p:dataTable>
+
+	<h:form>
+		<p:growl id="messages"></p:growl>
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Enter Worker Name, Sirname and Patronymic :"></p:outputLabel>
+			<p:inputText value="#{registerWorker.worker.fio}"></p:inputText>
+			<p:outputLabel value="Enter Worker Birth Date:"></p:outputLabel>
+			<p:calendar value="#{registerWorker.worker.datebirth}"></p:calendar>
+			<p:outputLabel value="Enter Worker Hire Date:"></p:outputLabel>
+			<p:calendar value="#{registerWorker.worker.datehire}"></p:calendar>
+		</p:panelGrid>
+		<p:commandButton value="Register" action="#{registerWorker.register}" update="messages"></p:commandButton>
+	</h:form>
+	</html>
