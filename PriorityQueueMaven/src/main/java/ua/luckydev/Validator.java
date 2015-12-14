@@ -8,7 +8,7 @@ import java.util.Date;
 class Validator
 {
 
-    static boolean validation(String[] arrayMessage)
+     boolean validation(String[] arrayMessage)
     {
         if ((arrayMessage.length == 6) && (arrayMessage[0].equals("InstructionMessage")) && (checkInstructionType(arrayMessage[1])) &&
                 (checkProductCode(arrayMessage[2]) && checkQuantity(arrayMessage[3]) && checkUOM(arrayMessage[4]) && checkDate(arrayMessage[5])))
@@ -17,7 +17,7 @@ class Validator
         else return false;
     }
 
-    static boolean checkProductCode(String productCode) //String of form AB12 (two uppercase letters followed by two digits)
+    boolean checkProductCode(String productCode) //String of form AB12 (two uppercase letters followed by two digits)
     {
         if (productCode.matches("[A-Z]{2}\\d{2}"))
         {
@@ -25,7 +25,7 @@ class Validator
         } else return false;
     }
 
-    static boolean checkInstructionType(String instruction) //One of A, B, C or D
+    boolean checkInstructionType(String instruction) //One of A, B, C or D
     {
         if (instruction.matches("[A|B|C|D]{1}"))
         {
@@ -33,7 +33,7 @@ class Validator
         } else return false;
     }
 
-    static boolean checkQuantity(String quantityString)  //Integer, 0 < n
+    boolean checkQuantity(String quantityString)  //Integer, 0 < n
     {
         if (quantityString.matches("\\d{1,10}"))
         {
@@ -43,7 +43,7 @@ class Validator
         } else return false;
     }
 
-    static boolean checkUOM(String uomString)   //Integer, 0 <= n < 256
+    boolean checkUOM(String uomString)   //Integer, 0 <= n < 256
     {
         if (uomString.matches("\\d{1,3}"))
         {
@@ -53,7 +53,7 @@ class Validator
         } else return false;
     }
 
-    static boolean checkDate(String dateString) //Unix epoch < t <= current time
+    boolean checkDate(String dateString) //Unix epoch < t <= current time
     {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 

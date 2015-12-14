@@ -2,6 +2,7 @@ package ua.luckydev;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 //Just testing
 class MainClass
@@ -9,7 +10,8 @@ class MainClass
     public static void main(String[] args)
     {
         new MessageReceiverImpl().receive("InstructionMessage B MZ89 5678 50 2015-03-05T10:04:56.012Z");
-        InstructionQueue instructionQueue = new InstructionQueue();
+        PriorityQueue<InstructionMessage> priorityQueue = new PriorityQueue<InstructionMessage>();
+        InstructionQueue instructionQueue = new InstructionQueue(priorityQueue);
 
         List<String> messageList = new ArrayList<String>();
         messageList.add("InstructionMessage B MZ89 5678 50 2015-03-05T10:04:56.012Z");
@@ -34,7 +36,7 @@ class MainClass
         }
 
         System.out.println("Обход очереди");
-        for (InstructionMessage message : instructionQueue)
+        for (InstructionMessage message : priorityQueue)
         {
             System.out.println(message);
         }

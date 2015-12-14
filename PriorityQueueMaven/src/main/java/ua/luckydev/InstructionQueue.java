@@ -5,29 +5,38 @@ import java.util.PriorityQueue;
 
 //public class InstructionQueue extends PriorityQueue
 // мотод boolean isEmpty() и InstructionMessage peek() не уже реализованы в PriorityQueue по-умолчанию
-class InstructionQueue extends PriorityQueue<InstructionMessage>
+class InstructionQueue
 {
-    //Adds a message to the queue
+    PriorityQueue<InstructionMessage> priorityQueue;
+
+    public InstructionQueue(PriorityQueue<InstructionMessage> priorityQueue)
+    {
+        this.priorityQueue = priorityQueue;
+    }
+
     void enqueue(InstructionMessage message)
     {
-        message.setTimeStampQueue(new Date().getTime() + count()); //инициализируем поле, которое будет использоваться в
-        add(message);                           // сортировке для обеспечения ФИФО у объектов с одинаковым InstructionType
+        message.setTimeStampQueue(System.nanoTime());
+        priorityQueue.add(message);
     }
 
-    //Removes the highest-priority message from the queue and returns it
     InstructionMessage dequeue()
     {
-        return poll(); //т.к. подобный метод уже реализовон, но с другим названием, перенаправляем вызов
+        return priorityQueue.poll();
     }
 
-    //Returns the number of messages currently on the queue
-    int count()  //т.к. подобный метод уже реализовон, но с другим названием, перенаправляем вызов
+    int count()
     {
-        return size();
+        return priorityQueue.size();
     }
 
+    InstructionMessage peek()
+    {
+        return priorityQueue.peek();
+    }
 
-
-
-
+    boolean isEmpty()
+    {
+        return priorityQueue.isEmpty();
+    }
 }
