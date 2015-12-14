@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="Primefaces-AccordionPanel-Example:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="Primefaces-AccordionPanel-Example-0.0.1-SNAPSHOT.war">
-      <element id="artifact" artifact-name="Primefaces-AccordionPanel-Example:war exploded" />
-    </root>
-  </artifact>
-</component>
