@@ -9,15 +9,15 @@
 <h:body>
     <h1>Тестовое задание - "Создать список персонала фирмы"</h1>
     <h:form id="AddPerson">
-         <p:commandButton value="Добавить сотрудника" actionListener="#{personneBean.addEvent(actionEvent)}"
-            update=":addPerson:addPersonDialog"  oncomplete="PF('addPerson').show()" />
+         <p:commandButton value="Добавить сотрудника" update=":addPerson:addPersonDialog" actionListener="#{personneBean.addEvent(actionEvent)}"
+              oncomplete="PF('addPerson').show()" />
     </h:form>
     <br/>
     <h:form id="mainForm">
         <p:growl id="growl" showDetail="true" sticky="false"  />
         <p:dataTable id="mainTable" var="worker" value="#{personneBean.listWorkers}"  widgetVar="PersonneTable"
                      emptyMessage="Рабочих не найдено" paginator="true" rows="15" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="5,10,15" style="width:500px;font-size:13px;margin-left: 150px" sortBy="#{worker.fio}">
+                     rowsPerPageTemplate="5,10,15" style="width:800px;font-size:13px;margin-left: 150px" sortBy="#{worker.fio}">
 
             <f:facet name="header">
                 <p:outputPanel>
@@ -25,18 +25,21 @@
                 </p:outputPanel>
             </f:facet>
 
-            <p:column id="fioCol" headerText="FIO" sortBy="#{worker.fio}" filterBy="#{worker.fio}"  filterMatchMode="exact" footerText=" ID exacte">
+            <p:column headerText="ФИО" id="fioCol" sortBy="#{worker.fio}" filterBy="#{worker.fio}"  filterMatchMode="exact" >
                 <h:outputText value="#{worker.fio}"   />
             </p:column>
-            <p:column headerText="Birth date" id="birthDate" sortBy="#{worker.datebirth}" filterBy="#{worker.datebirth}" filterMatchMode="exact" footerText="nom exacte">
-                <h:outputText value="#{worker.datebirth}">
+            <p:column headerText="Дата рождения" id="birthDate" sortBy="#{worker.dateBirth}" filterBy="#{worker.dateBirth}" filterMatchMode="exact">
+                <h:outputText value="#{worker.dateBirth}">
                     <f:convertDateTime pattern="dd.MM.yyyy"/>
             </h:outputText>
             </p:column>
-            <p:column headerText="Hired date" id="bhirehDate" sortBy="#{worker.datehire}" filterBy="#{worker.datehire}" filterMatchMode="contains" footerText="contient">
-                <h:outputText value="#{worker.datehire}">
+            <p:column headerText="Дата трудоуст." id="bhirehDate" sortBy="#{worker.dateHire}" filterBy="#{worker.dateHire}" filterMatchMode="exact">
+                <h:outputText value="#{worker.dateHire}">
                     <f:convertDateTime pattern="dd.MM.yyyy"/>
                 </h:outputText>
+            </p:column>
+            <p:column headerText="Позиция" id="position" sortBy="#{worker.position}" filterBy="#{worker.position}"  filterMatchMode="exact" >
+                <h:outputText value="#{worker.position}" />
             </p:column>
 
             <p:column style="width:12%">
@@ -57,21 +60,19 @@
             <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
 
                 <p:outputLabel for="fio" title="FIO" value="FIO:" style="color: crimson;" />
-                <p:inputText value="#{personneBean.worker.fio}"  id="fio" required="true" />
+                <p:inputText id="fio" value="#{personneBean.worker.fio}" required="true" />
 
                 <p:outputLabel for="datebirth" title="Date of birth"  value="Date of birth:" style="color: crimson;"/>
-                <p:calendar id="datebirth" value="#{personneBean.worker.datebirth}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+                <p:calendar id="datebirth" value="#{personneBean.worker.dateBirth}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
 
                 <p:outputLabel for="datehire" title="Date of hire" value="Date of hire:" style="color: crimson;"/>
-                <p:calendar id="datehire" value="#{personneBean.worker.datehire}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+                <p:calendar id="datehire" value="#{personneBean.worker.dateHire}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
 
             </h:panelGrid>
             <p:separator/>
             <p:commandButton value="ADD" update=":mainForm:mainTable, growl" actionListener="#{personneBean.actionAddWorker(actionEvent)}"
-                             oncomplete="PF('addPerson').hide()"  />-->
-
+                             oncomplete="PF('addPerson').hide()"  />
         </p:dialog>
-
     </h:form>
 
     <h:form id="updatePerson">
@@ -79,18 +80,18 @@
             <p:growl id="growl" showDetail="true" sticky="false" />
             <h:panelGrid id="updatePanel" columns="2" cellpadding="4" style="margin:0 auto;">
 
-                <h:outputLabel for="fio" title="FIO" value="FIO:" style="color: crimson;" />
-                <h:inputText value="#{personneBean.worker.fio}"  id="fioAdd" required="true"/>
+                <h:outputLabel for="fioAdd" title="FIO" value="FIO:" style="color: crimson;" />
+                <h:inputText id="fioAdd" value="#{personneBean.worker.fio}"  required="true"/>
 
                 <h:outputLabel for="datebirthAdd" title="Date of birth"  value="Date of birth:" style="color: crimson;"/>
 
-                <h:inputText value="#{personneBean.worker.datebirth}"  id="datebirthAdd" required="true">
+                <h:inputText id="datebirthAdd" value="#{personneBean.worker.dateBirth}" required="true">
                 <f:convertDateTime pattern="dd.MM.yyyy"/>
                 </h:inputText>
 
                 <h:outputLabel for="datehireAdd" title="Date of hire" value="Date of hire" style="color: crimson;"/>
 
-                <h:inputText value="#{personneBean.worker.datehire}"   id="datehireAdd" required="true">
+                <h:inputText id="datehireAdd" value="#{personneBean.worker.dateHire}" required="true">
                 <f:convertDateTime pattern="dd.MM.yyyy"/>
                 </h:inputText>
 
@@ -99,7 +100,6 @@
             <p:commandButton value="Update" update=":mainForm:mainTable, growl" actionListener="#{personneBean.updatePerson(actionEvent) }"
                              oncomplete="PF('updatePerson').hide()"/>
         </p:dialog>
-
     </h:form>
 
 </h:body>

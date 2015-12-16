@@ -85,7 +85,8 @@ public class PersonneBean implements Serializable
 
     public void editeEvent(int id)
     {
-        this.worker = serviceImp.getWorker(id);//
+        this.worker = serviceImp.getWorker(id);
+
 
     }
 

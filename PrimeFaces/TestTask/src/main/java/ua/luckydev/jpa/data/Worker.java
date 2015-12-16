@@ -1,62 +1,115 @@
 package ua.luckydev.jpa.data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "worker")
-public class Worker {
-	@Id
-	private int id;
+public class Worker  {
+    @Id
+    private int id;
+    private String fio;
 
-	private String fio;
+    @Temporal(TemporalType.DATE)
+    private Date dateBirth;
 
-	@Temporal(TemporalType.DATE)
-	private Date datebirth;
+    @Temporal(TemporalType.DATE)
+    private Date dateHire;
 
-	@Temporal(TemporalType.DATE)
-	private Date datehire;
+    String position;
+    String manager;
+    String info;
 
-	public int getId() {
-		return id;
-	}
+    @Transient
+    List<Person> listWorkers = new ArrayList<>();
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
-	public String getFio() {
-		return fio;
-	}
+    public String getManager()
+    {
+        return manager;
+    }
 
-	public void setFio(String fio) {
-		this.fio = fio;
-	}
+    public void setManager(String manager)
+    {
+        this.manager = manager;
+    }
 
-	public Date getDatebirth() {
-		return datebirth;
-	}
+    public List<Person> getListWorkers()
+    {
+        return listWorkers;
+    }
 
-	public void setDatebirth(Date datebirth) {
-		this.datebirth = datebirth;
-	}
+    public void setListWorkers(List<Person> listWorkers)
+    {
+        this.listWorkers = listWorkers;
+    }
 
-	public Date getDatehire() {
-		return datehire;
-	}
+    public String getInfo()
+    {
+        return info;
+    }
 
-	public void setDatehire(Date datehire) {
-		this.datehire = datehire;
-	}
+    public void setInfo(String info)
+    {
+        this.info = info;
+    }
 
-	@Override
-	public String toString()
-	{
-		return "Worker{" +
-				"id=" + id +
-				", fio='" + fio + '\'' +
-				", datebirth=" + datebirth +
-				", datehire=" + datehire +
-				'}';
-	}
+    public int getId()
+    {
+        return id;
+    }
+
+    public Date getDateHire()
+    {
+        return dateHire;
+    }
+
+    public void setDateHire(Date dateHire)
+    {
+        this.dateHire = dateHire;
+    }
+
+    public String getPosition()
+    {
+        return position;
+    }
+
+    public void setPosition(String position)
+    {
+        this.position = position;
+    }
+
+    public Date getDateBirth()
+    {
+        return dateBirth;
+    }
+
+    public void setDateBirth(Date dateBirth)
+    {
+        this.dateBirth = dateBirth;
+    }
+
+    public String getFio()
+    {
+        return fio;
+    }
+
+    public void setFio(String fio)
+    {
+        this.fio = fio;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Person{" +
+                "id=" + id +
+                ", fio='" + fio + '\'' +
+                ", position='" + position + '\'' +
+                '}';
+    }
+
+
 }
