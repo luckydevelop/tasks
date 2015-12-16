@@ -30,18 +30,16 @@ class InstructionMessage implements Comparable<InstructionMessage>
 
    // @Override
     public int compareTo(InstructionMessage message) // Переопределяем метод согласно ТЗ
-    {
-       int res;
+{
+    int res;
 
-        res = instructionType.compareTo(message.instructionType);
-        if((instructionType.equals("C") || instructionType.equals("D"))&&
-                (message.instructionType.equals("C") || message.instructionType.equals("D")))
-            res=0;
-        if (res==0)
-        {
-            res = timeStampQueue.compareTo(message.timeStampQueue);
-        }
-        return res;    }
+    res = instructionType.compareTo(message.instructionType);
+    if((instructionType.equals("C") || instructionType.equals("D"))&&
+            (message.instructionType.equals("C") || message.instructionType.equals("D")))
+        res=0;
+    if (res==0) res = timeStampQueue.compareTo(message.timeStampQueue);
+    return res;
+}
 
     @Override
     public String toString() // для удобства текстовое отображение класса

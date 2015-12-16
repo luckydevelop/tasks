@@ -6,9 +6,17 @@ import java.text.SimpleDateFormat;
 
 class MessageReceiverImpl implements MessageReceiver
 {
-    static InstructionMessage instructionMessage; //тут будет храниться текущий экземпляр InstructionMessage, т.к.
+    InstructionMessage instructionMessage;
+    Validator validator;
+    Parser parser;
+    private final String regExForSplit = " ";
 
-    public void createInstance(String[] arrayMessage)
+    public MessageReceiverImpl(Parser parser)
+    {
+        this.parser = parser;
+    }
+
+    void createInstance(String[] arrayMessage)
     {
        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
@@ -17,23 +25,22 @@ class MessageReceiverImpl implements MessageReceiver
             instructionMessage = new InstructionMessage(arrayMessage[0], arrayMessage[1], arrayMessage[2],
               new Integer(arrayMessage[3]), new Integer(arrayMessage[4]), simpleDateFormat.parse(arrayMessage[5]));
         }
-        catch (ParseException e) //ловим исключение, которое требует обработать SimpleDateFormat
+        catch (ParseException e)
         {
             e.printStackTrace();
         }
     }
 
-       public void receive(String message) //This method should build an instance of type InstructionMessage
+       public void receive(String message)
     {
-        String[] arrayMessage = message.split(" ");
+        Parser parser = new Parser(message);
 
-            if (Validator.validation(arrayMessage)) //проверяем валидно ли сообщение
+            if (Validator.validation(arrayMessage))
             {
-                createInstance(arrayMessage); //создаём объект InstructionMessage
+                createInstance(arrayMessage);
             }
             else
             {
-                //Если валидация не пройдена, то выбрасывается исключение
                 throw new IllegalArgumentException("Invalid InstructionMessage. Please check you InstructionMessage");
             }
     }
