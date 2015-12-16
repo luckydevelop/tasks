@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "personneBean")
-    // @SessionScoped //?!?!?!?!? //Serialisation
+    //@SessionScoped //?!?!?!?!? //Serialisation
     @ViewScoped
      public class PersonneBean implements Serializable
 {
@@ -67,13 +67,13 @@ import java.util.List;
     public List<Worker> getListWorkers() {
         // dao = new ServiceImp();
         // listWorkers = dao.getListWorkerse();
-       // listWorkers = serviceImp.listWorkers();
+        //listWorkers = serviceImp.listWorkers();
         return listWorkers;
     }
 
 
     public void ajoutEvent(ActionEvent actionEvent) {
-           worker = new Worker();
+           this.worker = new Worker();
     }
 
     //public void ajoutp(ActionEvent actionEvent) {
@@ -86,14 +86,15 @@ import java.util.List;
 //        System.out.println("TTTT - " +actionEvent.getSource());
 //        System.out.println("BLIN!!");
 //         System.out.println("TTTT - " +actionEvent.toString());
-
-        worker = new Worker();
+        init();
+        this.worker = new Worker();
+       System.out.println("test -"+worker);
     }
 
     public void editEvent(int id) {
         System.out.print(id);
         ///dao = new ServiceImp();
-        worker = serviceImp.getWorker(id);//
+        this.worker = serviceImp.getWorker(id);//
         System.out.println(worker);
         System.out.print(id);
     }
@@ -102,6 +103,7 @@ import java.util.List;
         serviceImp.updateWorker(worker);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Personne mise ? jour"));
+        init();
     }
 
     public void delet(Worker worker) {
@@ -109,6 +111,7 @@ import java.util.List;
         serviceImp.deleteWorker(worker);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Personne supprim?"));
+        init();
     }
 
     public String addWorker() {

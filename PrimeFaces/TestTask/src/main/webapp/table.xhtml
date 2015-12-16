@@ -11,19 +11,19 @@
     <h:form id="AjoutP">
         <!--<p:commandButton value="Добавить сотрудника" oncomplete="PF('personneAjout').show()" />-->
         <!--<p:commandButton value="Добавить сотрудника" icon="ui-icon-adds" actionListener="#{personneBean.ajoutEvent(actionEvent)}" update=":edit:editP" oncomplete="personneAjout.show()"/>-->
-        <p:commandButton value="Добавить рабочего" icon="ui-icon-adds" actionListener="#{personneBean.ajoutEvent(actionEvent)}" oncomplete="PF('personneAjout').show()"/>
+        <p:commandButton value="Добавить рабочего personneBean #{personneBean.worker.fio} " icon="ui-icon-adds" actionListener="#{personneBean.ajoutEvent(actionEvent)}"
+                         update=":edit:editP"  oncomplete="PF('personneAjout').show()" />
     </h:form>
     <br/>
     <h:form id="a">
         <p:growl id="growl" showDetail="true" sticky="false"  />
         <p:dataTable id="AjoutTab" var="worker" value="#{personneBean.listWorkers}"  widgetVar="PersonneTable"
                      emptyMessage="Рабочих не найдено" paginator="true" rows="15" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="5,10,15" style="width:500px;font-size:13px;margin-left: 150px">
+                     rowsPerPageTemplate="5,10,15" style="width:500px;font-size:13px;margin-left: 150px" sortBy="#{worker.fio}">
 
             <f:facet name="header">
                 <p:outputPanel>
-                    <h:outputText value="Recherche:" />
-                    <p:inputText id="globalFilter" onkeyup="PersonneTable.filter()" style="width:80px" />
+                    <h:outputText value="СОТРУДНИКИ" />
                 </p:outputPanel>
             </f:facet>
 
@@ -42,7 +42,8 @@
             </p:column>
 
             <p:column style="width:12%">
-                <p:commandButton id="Editer"  update=":Actualise:displaye" icon="ui-icon-arrowrefresh-1-w" oncomplete="PF('personneEdit').show();" actionListener="#{personneBean.editEvent(worker.id)}" title="Update"/>
+                <p:commandButton id="Editer"  update=":Actualise:displaye" icon="ui-icon-arrowrefresh-1-w"
+                                 oncomplete="PF('personneEdit').show();" actionListener="#{personneBean.editEvent(worker.id)}" title="Update"/>
             </p:column>
             <p:column style="width:12%">
                 <p:commandButton id="Supprimer"  update=":a:AjoutTab, :a:growl" icon="ui-icon-trash" action="#{personneBean.delet(worker)}"  title="Delete"/>
@@ -68,7 +69,8 @@
 
             </h:panelGrid>
             <p:separator/>
-            <p:commandButton value="ADD" update=":a:AjoutTab, growl" actionListener="#{personneBean.actionAddWorker(actionEvent)}" oncomplete="PF('personneAjout').hide()"  />-->
+            <p:commandButton value="ADD" update=":a:AjoutTab, :AjoutP, growl" actionListener="#{personneBean.actionAddWorker(actionEvent)}"
+                             oncomplete="PF('personneAjout').hide()"  />-->
 
         </p:dialog>
 
@@ -96,7 +98,8 @@
 
             </h:panelGrid>
             <p:separator/>
-            <p:commandButton value="Update" update=":a:AjoutTab, growl" actionListener="#{personneBean.edition(actionEvent) }" oncomplete="PF('personneEdit').hide()"/>
+            <p:commandButton value="Update" update=":a:AjoutTab, growl" actionListener="#{personneBean.edition(actionEvent) }"
+                             oncomplete="PF('personneEdit').hide()"/>
         </p:dialog>
 
     </h:form>
