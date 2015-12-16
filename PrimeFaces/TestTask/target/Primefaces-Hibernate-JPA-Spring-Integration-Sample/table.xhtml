@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Facelet Title</title>
+    <link rel="stylesheet" href="css/style.css "/>
+</h:head>
+<h:body>
+    <h1>Тестовое задание</h1>
+    <h:form id="AjoutP">
+        <!--<p:commandButton value="Добавить сотрудника" oncomplete="PF('personneAjout').show()" />-->
+        <!--<p:commandButton value="Добавить сотрудника" icon="ui-icon-adds" actionListener="#{personneBean.ajoutEvent(actionEvent)}" update=":edit:editP" oncomplete="personneAjout.show()"/>-->
+        <p:commandButton value="Добавить рабочего" icon="ui-icon-adds" actionListener="#{personneBean.ajoutEvent(actionEvent)}" oncomplete="PF('personneAjout').show()"/>
+    </h:form>
+    <br/>
+    <h:form id="a">
+        <p:growl id="growl" showDetail="true" sticky="false"  />
+        <p:dataTable id="AjoutTab" var="worker" value="#{personneBean.listWorkers}"  widgetVar="PersonneTable"
+                     emptyMessage="Рабочих не найдено" paginator="true" rows="15" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15" style="width:500px;font-size:13px;margin-left: 150px">
+
+            <f:facet name="header">
+                <p:outputPanel>
+                    <h:outputText value="Recherche:" />
+                    <p:inputText id="globalFilter" onkeyup="PersonneTable.filter()" style="width:80px" />
+                </p:outputPanel>
+            </f:facet>
+
+            <p:column id="fioCol" headerText="FIO" sortBy="#{worker.fio}" filterBy="#{worker.fio}"  filterMatchMode="exact" footerText=" ID exacte">
+                <h:outputText value="#{worker.fio}"   />
+            </p:column>
+            <p:column headerText="Birth date" id="birthDate" sortBy="#{worker.datebirth}" filterBy="#{worker.datebirth}" filterMatchMode="exact" footerText="nom exacte">
+                <h:outputText value="#{worker.datebirth}">
+                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </h:outputText>
+            </p:column>
+            <p:column headerText="Hired date" id="bhirehDate" sortBy="#{worker.datehire}" filterBy="#{worker.datehire}" filterMatchMode="contains" footerText="contient">
+                <h:outputText value="#{worker.datehire}">
+                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                </h:outputText>
+            </p:column>
+
+            <p:column style="width:12%">
+                <p:commandButton id="Editer"  update=":Actualise:displaye" icon="ui-icon-arrowrefresh-1-w" oncomplete="PF('personneEdit').show();" actionListener="#{personneBean.editEvent(worker.id)}" title="Update"/>
+            </p:column>
+            <p:column style="width:12%">
+                <p:commandButton id="Supprimer"  update=":a:AjoutTab, :a:growl" icon="ui-icon-trash" action="#{personneBean.delet(worker)}"  title="Delete"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+    <h:form id="edit">
+
+        <p:dialog header="Please add new worker" widgetVar="personneAjout" resizable="false" id="editP" modal="true" >
+
+            <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+            <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                <p:outputLabel for="fio" title="FIO" value="FIO:" style="color: crimson;" />
+                <p:inputText value="#{personneBean.worker.fio}"  id="fio" required="true" />
+
+                <p:outputLabel for="datebirth" title="Date of birth"  value="Date of birth:" style="color: crimson;"/>
+                <p:calendar id="datebirth" value="#{personneBean.worker.datebirth}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+
+                <p:outputLabel for="datehire" title="Date of hire" value="Date of hire:" style="color: crimson;"/>
+                <p:calendar id="datehire" value="#{personneBean.worker.datehire}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+
+            </h:panelGrid>
+            <p:separator/>
+            <p:commandButton value="ADD" update=":a:AjoutTab, growl" actionListener="#{personneBean.actionAddWorker(actionEvent)}" oncomplete="PF('personneAjout').hide()"  />-->
+
+        </p:dialog>
+
+    </h:form>
+
+    <h:form id="Actualise">
+        <p:dialog header="Please update the information" widgetVar="personneEdit" resizable="false" id="editPer" modal="true">
+            <p:growl id="growl" showDetail="true" sticky="false" />
+            <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                <h:outputLabel for="fio" title="FIO" value="FIO:" style="color: crimson;" />
+                <h:inputText value="#{personneBean.worker.fio}"  id="fioAdd" required="true"/>
+
+                <h:outputLabel for="datebirthAdd" title="Date of birth"  value="Date of birth:" style="color: crimson;"/>
+
+                <h:inputText value="#{personneBean.worker.datebirth}"  id="datebirthAdd" required="true">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                </h:inputText>
+
+                <h:outputLabel for="datehireAdd" title="Date of hire" value="Date of hire" style="color: crimson;"/>
+
+                <h:inputText value="#{personneBean.worker.datehire}"   id="datehireAdd" required="true">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                </h:inputText>
+
+            </h:panelGrid>
+            <p:separator/>
+            <p:commandButton value="Update" update=":a:AjoutTab, growl" actionListener="#{personneBean.edition(actionEvent) }" oncomplete="PF('personneEdit').hide()"/>
+        </p:dialog>
+
+    </h:form>
+
+</h:body>
+</html>

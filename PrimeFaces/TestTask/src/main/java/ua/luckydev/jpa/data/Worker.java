@@ -1,0 +1,62 @@
+package ua.luckydev.jpa.data;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@Table(name = "worker")
+public class Worker {
+	@Id
+	private int id;
+
+	private String fio;
+
+	@Temporal(TemporalType.DATE)
+	private Date datebirth;
+
+	@Temporal(TemporalType.DATE)
+	private Date datehire;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getFio() {
+		return fio;
+	}
+
+	public void setFio(String fio) {
+		this.fio = fio;
+	}
+
+	public Date getDatebirth() {
+		return datebirth;
+	}
+
+	public void setDatebirth(Date datebirth) {
+		this.datebirth = datebirth;
+	}
+
+	public Date getDatehire() {
+		return datehire;
+	}
+
+	public void setDatehire(Date datehire) {
+		this.datehire = datehire;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Worker{" +
+				"id=" + id +
+				", fio='" + fio + '\'' +
+				", datebirth=" + datebirth +
+				", datehire=" + datehire +
+				'}';
+	}
+}
