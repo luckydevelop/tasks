@@ -3,21 +3,19 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-    <title>Facelet Title</title>
-    <link rel="stylesheet" href="css/style.css "/>
+    <title>Test Task</title>
+    <!--<link rel="stylesheet" href="css/style.css "/>-->
 </h:head>
 <h:body>
-    <h1>Тестовое задание</h1>
-    <h:form id="AjoutP">
-        <!--<p:commandButton value="Добавить сотрудника" oncomplete="PF('personneAjout').show()" />-->
-        <!--<p:commandButton value="Добавить сотрудника" icon="ui-icon-adds" actionListener="#{personneBean.ajoutEvent(actionEvent)}" update=":edit:editP" oncomplete="personneAjout.show()"/>-->
-        <p:commandButton value="Добавить рабочего personneBean #{personneBean.worker.fio} " icon="ui-icon-adds" actionListener="#{personneBean.ajoutEvent(actionEvent)}"
-                         update=":edit:editP"  oncomplete="PF('personneAjout').show()" />
+    <h1>Тестовое задание - "Создать список персонала фирмы"</h1>
+    <h:form id="AddPerson">
+         <p:commandButton value="Добавить сотрудника" actionListener="#{personneBean.addEvent(actionEvent)}"
+            update=":addPerson:addPersonDialog"  oncomplete="PF('addPerson').show()" />
     </h:form>
     <br/>
-    <h:form id="a">
+    <h:form id="mainForm">
         <p:growl id="growl" showDetail="true" sticky="false"  />
-        <p:dataTable id="AjoutTab" var="worker" value="#{personneBean.listWorkers}"  widgetVar="PersonneTable"
+        <p:dataTable id="mainTable" var="worker" value="#{personneBean.listWorkers}"  widgetVar="PersonneTable"
                      emptyMessage="Рабочих не найдено" paginator="true" rows="15" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      rowsPerPageTemplate="5,10,15" style="width:500px;font-size:13px;margin-left: 150px" sortBy="#{worker.fio}">
 
@@ -42,18 +40,18 @@
             </p:column>
 
             <p:column style="width:12%">
-                <p:commandButton id="Editer"  update=":Actualise:displaye" icon="ui-icon-arrowrefresh-1-w"
-                                 oncomplete="PF('personneEdit').show();" actionListener="#{personneBean.editEvent(worker.id)}" title="Update"/>
+                <p:commandButton id="updatePersonCol" update=":updatePerson:updatePanel" icon="ui-icon-arrowrefresh-1-w"
+                                 oncomplete="PF('updatePerson').show();" actionListener="#{personneBean.editeEvent(worker.id)}" title="Update"/>
             </p:column>
             <p:column style="width:12%">
-                <p:commandButton id="Supprimer"  update=":a:AjoutTab, :a:growl" icon="ui-icon-trash" action="#{personneBean.delet(worker)}"  title="Delete"/>
+                <p:commandButton id="deletePersonCol"  update=":mainForm:mainTable, :mainForm:growl" icon="ui-icon-trash" action="#{personneBean.delete(worker)}"  title="Delete"/>
             </p:column>
         </p:dataTable>
     </h:form>
 
-    <h:form id="edit">
+    <h:form id="addPerson">
 
-        <p:dialog header="Please add new worker" widgetVar="personneAjout" resizable="false" id="editP" modal="true" >
+        <p:dialog id="addPersonDialog" header="Please add new worker" widgetVar="addPerson" resizable="false"  modal="true" >
 
             <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
             <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
@@ -69,17 +67,17 @@
 
             </h:panelGrid>
             <p:separator/>
-            <p:commandButton value="ADD" update=":a:AjoutTab, :AjoutP, growl" actionListener="#{personneBean.actionAddWorker(actionEvent)}"
-                             oncomplete="PF('personneAjout').hide()"  />-->
+            <p:commandButton value="ADD" update=":mainForm:mainTable, growl" actionListener="#{personneBean.actionAddWorker(actionEvent)}"
+                             oncomplete="PF('addPerson').hide()"  />-->
 
         </p:dialog>
 
     </h:form>
 
-    <h:form id="Actualise">
-        <p:dialog header="Please update the information" widgetVar="personneEdit" resizable="false" id="editPer" modal="true">
+    <h:form id="updatePerson">
+        <p:dialog header="Please update the information" widgetVar="updatePerson" resizable="false" id="updatePersonDialog" modal="true">
             <p:growl id="growl" showDetail="true" sticky="false" />
-            <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+            <h:panelGrid id="updatePanel" columns="2" cellpadding="4" style="margin:0 auto;">
 
                 <h:outputLabel for="fio" title="FIO" value="FIO:" style="color: crimson;" />
                 <h:inputText value="#{personneBean.worker.fio}"  id="fioAdd" required="true"/>
@@ -98,8 +96,8 @@
 
             </h:panelGrid>
             <p:separator/>
-            <p:commandButton value="Update" update=":a:AjoutTab, growl" actionListener="#{personneBean.edition(actionEvent) }"
-                             oncomplete="PF('personneEdit').hide()"/>
+            <p:commandButton value="Update" update=":mainForm:mainTable, growl" actionListener="#{personneBean.updatePerson(actionEvent) }"
+                             oncomplete="PF('updatePerson').hide()"/>
         </p:dialog>
 
     </h:form>
