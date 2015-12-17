@@ -32,19 +32,11 @@ public class PersonneBean implements Serializable
 
 
    public List<String> getWorkersOfManagers(String managerFIO)
-   //
-   // public List<String> getWorkersOfManagers(String managerFIO)
+
     {
         workersOfManager = new ArrayList<String>();
-        System.out.println(managerFIO);
-//        workersOfManager.add("1");
-//        workersOfManager.add("2");
-//        if(managerFIO.equals(null)) return null;
-
-
         for (Worker listWorker : listWorkers)
         {
-           // if(managerFIO.equals(null)) return null;
             if(listWorker.getPosition().equals("Рабочий")&&listWorker.getManager().equals(managerFIO)) //enum
             {
                 workersOfManager.add(listWorker.getFio());
@@ -54,19 +46,6 @@ public class PersonneBean implements Serializable
         }
         return workersOfManager;
     }
-
-//    public List<String> getWorkersOfManagers()
-//    {
-//        workersOfManager.add("1");
-//        workersOfManager.add("2");
-//        return workersOfManager;
-//    }
-//
-//
-//    public void setWorkersOfManagers(List<Worker> workersOfManagers)
-//    {
-//        workersOfManagers = workersOfManagers;
-//    }
 
     private List<String> positions = new ArrayList<String>();
 
@@ -175,8 +154,6 @@ public class PersonneBean implements Serializable
     public void editeEvent(int id)
     {
         this.worker = serviceImp.getWorker(id);
-
-
     }
 
     public void updatePerson(ActionEvent actionEvent)
