@@ -48,6 +48,7 @@ public class PersonneBean implements Serializable
             if(listWorker.getPosition().equals("Рабочий")&&listWorker.getManager().equals(managerFIO)) //enum
             {
                 workersOfManager.add(listWorker.getFio());
+                System.out.println(listWorker.getFio());
             }
 
         }
