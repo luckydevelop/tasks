@@ -53,17 +53,7 @@ public class PersonneBean implements Serializable
         return positions;
     }
 
-//    public List<String> getPositions() {
-//        for (Worker listWorker : listWorkers) {
-//            String pos = listWorker.getPosition();
-//            if(pos!=null)
-//            {
-//                positions.add(pos);
-//                System.out.println(pos);
-//            }
-//        }
-//        return positions;
-//    }
+
 
     public void setPositions(List<String> positions) {
         this.positions = positions;
@@ -76,31 +66,7 @@ public class PersonneBean implements Serializable
     public void setListWorkersIsVisible(List<Boolean> listWorkersIsVisible) {
         this.listWorkersIsVisible = listWorkersIsVisible;
     }
-//    public List<Worker> getFilteredWorkers() {
-//        Collections.sort(getListWorkers(), new Comparator<Worker>() {
-//            @Override
-//            public int compare(Worker o1, Worker o2) {
-//
-//                return o1.getPosition().compareTo(o2.getPosition());
-//            }
-//        });
-//        return filteredWorkers;
-//    }
 
-//    public List<Worker> getFilteredWorkers() {
-//        Collections.sort(getListWorkers(), new Comparator<Worker>() {
-//            @Override
-//            public int compare(Worker o1, Worker o2) {
-//
-//                return o1.getPosition().compareTo(o2.getPosition());
-//            }
-//        });
-//        return filteredWorkers;
-//    }
-
-//    public void setFilteredWorkers(List<Worker> filteredWorkers) {
-//        this.filteredWorkers = filteredWorkers;
-//    }
 
     private List<Worker> filteredWorkers;
 
@@ -116,6 +82,7 @@ public class PersonneBean implements Serializable
         listWorkers.addAll(serviceImp.listWorkers());
 
         listWorkersIsVisible = new ArrayList<Boolean>();
+        listWorkersIsVisible.add(true);
         listWorkersIsVisible.add(true);
         listWorkersIsVisible.add(true);
         listWorkersIsVisible.add(true);

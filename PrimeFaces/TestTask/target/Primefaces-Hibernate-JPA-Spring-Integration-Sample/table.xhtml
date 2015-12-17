@@ -1,7 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
 <h:head>
     <title>Test Task</title>
     <!--<link rel="stylesheet" href="css/style.css "/>-->
@@ -20,7 +22,7 @@
 
         <p:dataTable id="mainTable" var="worker" value="#{personneBean.listWorkers}"  widgetVar="PersonneTable"
                      emptyMessage="Рабочих не найдено" paginator="true" rows="15" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="5,10,15" style="width:800px;font-size:13px;margin-left: 150px" sortBy="#{worker.fio}" >
+                     rowsPerPageTemplate="5,10,15" style="width:900px;font-size:13px;margin-left: 150px" sortBy="#{worker.fio}" >
 
 
         <!--<f:facet name="header">-->
@@ -70,23 +72,53 @@
                 <!--<h:outputText value="#{worker.position}" />-->
             <!--</p:column>-->
 
-            <p:column visible="#{personneBean.listWorkersIsVisible[3]}" filterBy="#{worker.position}" headerText="Позиция" filterMatchMode="in" >
+            <p:column visible="#{personneBean.listWorkersIsVisible[3]}" filterBy="#{worker.position}" headerText="Позиция"  filterMatchMode="in" >
                 <f:facet name="filter" >
                     <p:selectCheckboxMenu label="Позиции" onchange="PF('PersonneTable').filter()" panelStyle="width:125px" scrollHeight="150" >
                         <f:selectItems value="#{personneBean.positions}"  />
                     </p:selectCheckboxMenu>
                 </f:facet>
-                <h:outputText value="#{worker.position}" />
+                <h:outputText  value="#{worker.position}" />
             </p:column>
 
+            <p:column visible="#{personneBean.listWorkersIsVisible[4]}" headerText="Доп. информация" id="infoColumn" width="180">
+                <!--<c:choose>-->
+                    <!--<c:when test="#{worker.position=='менеджер'}">-->
+                        <!--value="#{worker.manager}"-->
+                    <!--</c:when>-->
+                <!--</c:choose>-->
+
+                <h:outputText rendered="#{worker.position=='Рабочий'}"  value="#{worker.manager}"/>
+                <h:outputText rendered="#{worker.position=='Менеджер'}"  value="#{worker.manager}"/>
+                <p:inputTextarea rendered="#{(worker.position!='Рабочий') and (worker.position!='Менеджер')}" value="#{worker.info}" title="Описание сотрудника 3-ий группы" rows="5" cols="20" readonly="true" autoResize="false"  />
 
 
 
-            <p:column visible="#{personneBean.listWorkersIsVisible[4]}" headerText="Изменить" style="width:12%">
+
+
+            </p:column>
+
+            <!--<c:choose>-->
+                <!--<c:when test="#{some.test}">-->
+                    <!--<p>some.test is true</p>-->
+                <!--</c:when>-->
+                <!--<c:otherwise>-->
+                    <!--<p>some.test is not true</p>-->
+                <!--</c:otherwise>-->
+            <!--</c:choose>-->
+
+
+            <!--<p:column visible="#{personneBean.listWorkersIsVisible[4]}" headerText="Доп. информация" id="infoColumn" >-->
+                <!--<h:outputText value="#{worker.manager}"   />-->
+            <!--</p:column>-->
+
+
+            <p:column visible="#{personneBean.listWorkersIsVisible[5]}" headerText="Изменить" style="width:12%">
                 <p:commandButton id="updatePersonCol" update=":updatePerson:updatePanel" icon="ui-icon-arrowrefresh-1-w"
                                  oncomplete="PF('updatePerson').show();" actionListener="#{personneBean.editeEvent(worker.id)}" title="Update"/>
             </p:column>
-            <p:column visible="#{personneBean.listWorkersIsVisible[5]}" headerText="Удалить" style="width:12%">
+
+            <p:column visible="#{personneBean.listWorkersIsVisible[6]}" headerText="Удалить" style="width:12%">
                 <p:commandButton id="deletePersonCol"  update=":mainForm:mainTable, :mainForm:growl" icon="ui-icon-trash" action="#{personneBean.delete(worker)}"  title="Delete"/>
             </p:column>
         </p:dataTable>
@@ -103,7 +135,7 @@
             <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
 
                 <p:outputLabel for="fio" title="FIO" value="FIO:" style="color: crimson;" />
-                <p:inputText id="fio" value="#{personneBean.worker.fio}" required="true" />
+                <p:inputText id="fio" value="#{personneBean.worker.fio}" alt="Введите ФИО сотрудника, пожалуйста" required="true" />
 
                 <p:outputLabel for="datebirth" title="Date of birth"  value="Date of birth:" style="color: crimson;"/>
                 <p:calendar id="datebirth" value="#{personneBean.worker.dateBirth}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
