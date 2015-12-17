@@ -28,15 +28,44 @@ public class PersonneBean implements Serializable
     private List<Worker> listWorkers;
     private List<Boolean> listWorkersIsVisible;
 
-    private List<Worker> filteredListWorkers;
+    private List<String> workersOfManager;
 
-    public List<Worker> getFilteredListWorkers() {
-        return filteredListWorkers;
+
+   public List<String> getWorkersOfManagers(String managerFIO)
+   //
+   // public List<String> getWorkersOfManagers(String managerFIO)
+    {
+        workersOfManager = new ArrayList<String>();
+        System.out.println(managerFIO);
+//        workersOfManager.add("1");
+//        workersOfManager.add("2");
+//        if(managerFIO.equals(null)) return null;
+
+
+        for (Worker listWorker : listWorkers)
+        {
+           // if(managerFIO.equals(null)) return null;
+            if(listWorker.getPosition().equals("Рабочий")&&listWorker.getManager().equals(managerFIO)) //enum
+            {
+                workersOfManager.add(listWorker.getFio());
+            }
+
+        }
+        return workersOfManager;
     }
 
-    public void setFilteredListWorkers(List<Worker> filteredListWorkers) {
-        this.filteredListWorkers = filteredListWorkers;
-    }
+//    public List<String> getWorkersOfManagers()
+//    {
+//        workersOfManager.add("1");
+//        workersOfManager.add("2");
+//        return workersOfManager;
+//    }
+//
+//
+//    public void setWorkersOfManagers(List<Worker> workersOfManagers)
+//    {
+//        workersOfManagers = workersOfManagers;
+//    }
 
     private List<String> positions = new ArrayList<String>();
 
@@ -67,7 +96,6 @@ public class PersonneBean implements Serializable
         this.listWorkersIsVisible = listWorkersIsVisible;
     }
 
-
     private List<Worker> filteredWorkers;
 
     public PersonneBean()
@@ -91,18 +119,7 @@ public class PersonneBean implements Serializable
         listWorkersIsVisible.add(true);
     }
 
-//    @PostConstruct
-//    public void initListWorkersIsVisible()
-//    {
-//        //listWorkersIsVisible = Arrays.asList(true, true, true, true, true, true);
-//        listWorkersIsVisible = new ArrayList<Boolean>();
-//        listWorkersIsVisible.add(true);
-//        listWorkersIsVisible.add(true);
-//        listWorkersIsVisible.add(true);
-//        listWorkersIsVisible.add(true);
-//        listWorkersIsVisible.add(true);
-//        listWorkersIsVisible.add(true);
-//    }
+
 
     public void onToggle(ToggleEvent e) {
         listWorkersIsVisible.set((Integer) e.getData(), e.getVisibility() == Visibility.VISIBLE);

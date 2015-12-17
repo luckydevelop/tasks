@@ -22,7 +22,7 @@
 
         <p:dataTable id="mainTable" var="worker" value="#{personneBean.listWorkers}"  widgetVar="PersonneTable"
                      emptyMessage="Рабочих не найдено" paginator="true" rows="15" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="5,10,15" style="width:900px;font-size:13px;margin-left: 150px" sortBy="#{worker.fio}" >
+                     rowsPerPageTemplate="5,10,15" style="width:1000px;font-size:13px;margin-left: 150px" sortBy="#{worker.fio}" >
 
 
         <!--<f:facet name="header">-->
@@ -51,9 +51,9 @@
                 <!--</p:columnToggler>-->
             <!--</f:facet>-->
 
-            visible="#{dtBasicView.list[0]}"
+            <!--visible="#{dtBasicView.list[0]}"-->
 
-            <p:column visible="#{personneBean.listWorkersIsVisible[0]}" headerText="ФИО" id="fioCol" sortBy="#{worker.fio}" filterBy="#{worker.fio}"  filterMatchMode="exact"  >
+            <p:column visible="#{personneBean.listWorkersIsVisible[0]}" headerText="ФИО" id="fioCol" sortBy="#{worker.fio}" filterBy="#{worker.fio}"  filterMatchMode="exact" width="250"  >
                 <h:outputText value="#{worker.fio}"   />
             </p:column>
 
@@ -89,7 +89,30 @@
                 <!--</c:choose>-->
 
                 <h:outputText rendered="#{worker.position=='Рабочий'}"  value="#{worker.manager}"/>
-                <h:outputText rendered="#{worker.position=='Менеджер'}"  value="#{worker.manager}"/>
+                <!--<h:outputText rendered="#{worker.position=='Менеджер'}"  value="#{worker.manager}"/>-->
+
+                <!--<p:selectOneMenu value="#{selectOneMenuView.console}" style="width:125px">-->
+                    <!--<f:selectItem itemLabel="Select One" itemValue="" />-->
+                    <!--<f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />-->
+                    <!--<f:selectItem itemLabel="PS4" itemValue="PS4" />-->
+                    <!--<f:selectItem itemLabel="Wii U" itemValue="Wii U" />-->
+                <!--</p:selectOneMenu>-->
+
+
+                <p:selectOneMenu rendered="#{worker.position=='Менеджер'}" labelTemplate="Рабочии менеджера">
+                    <f:selectItems value="#{personneBean.getWorkersOfManagers(worker.fio)}" />
+                    <!--<f:selectItems value="#{selectOneMenuView.cars}" />-->
+                </p:selectOneMenu>
+
+
+                <!--<p:selectOneMenu rendered="#{worker.position=='Менеджер'}" labelTemplate="Рабочии менеджера">-->
+                    <!--<f:selectItems value="#{personneBean.getWorkersOfManagers()}" />-->
+                    <!--&lt;!&ndash;<f:selectItem itemLabel="1" />&ndash;&gt;-->
+                    <!--&lt;!&ndash;<f:selectItem itemLabel="2" />&ndash;&gt;-->
+                    <!--&lt;!&ndash;<f:selectItem itemLabel="3" />&ndash;&gt;-->
+                <!--</p:selectOneMenu>-->
+
+
                 <p:inputTextarea rendered="#{(worker.position!='Рабочий') and (worker.position!='Менеджер')}" value="#{worker.info}" title="Описание сотрудника 3-ий группы" rows="5" cols="20" readonly="true" autoResize="false"  />
 
 
@@ -113,12 +136,12 @@
             <!--</p:column>-->
 
 
-            <p:column visible="#{personneBean.listWorkersIsVisible[5]}" headerText="Изменить" style="width:12%">
+            <p:column visible="#{personneBean.listWorkersIsVisible[5]}" headerText="Изменить" width="70">
                 <p:commandButton id="updatePersonCol" update=":updatePerson:updatePanel" icon="ui-icon-arrowrefresh-1-w"
                                  oncomplete="PF('updatePerson').show();" actionListener="#{personneBean.editeEvent(worker.id)}" title="Update"/>
             </p:column>
 
-            <p:column visible="#{personneBean.listWorkersIsVisible[6]}" headerText="Удалить" style="width:12%">
+            <p:column visible="#{personneBean.listWorkersIsVisible[6]}" headerText="Удалить" width="70">
                 <p:commandButton id="deletePersonCol"  update=":mainForm:mainTable, :mainForm:growl" icon="ui-icon-trash" action="#{personneBean.delete(worker)}"  title="Delete"/>
             </p:column>
         </p:dataTable>

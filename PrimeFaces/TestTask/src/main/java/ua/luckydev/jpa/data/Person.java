@@ -1,5 +1,6 @@
 package ua.luckydev.jpa.data;
 
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +27,15 @@ public class Person
     @Transient
     List<Person> listWorkers = new ArrayList<>();
 
+    public List<Person> getListWorkers()
+    {
+        return listWorkers;
+    }
+
+    public void setListWorkers(List<Person> listWorkers)
+    {
+        this.listWorkers = listWorkers;
+    }
 
     public String getManager()
     {
@@ -35,16 +45,6 @@ public class Person
     public void setManager(String manager)
     {
         this.manager = manager;
-    }
-
-    public List<Person> getListWorkers()
-    {
-        return listWorkers;
-    }
-
-    public void setListWorkers(List<Person> listWorkers)
-    {
-        this.listWorkers = listWorkers;
     }
 
     public String getInfo()
