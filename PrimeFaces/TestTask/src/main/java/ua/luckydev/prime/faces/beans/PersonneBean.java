@@ -30,6 +30,7 @@ public class PersonneBean implements Serializable
     private List<Worker> listWorkers;
     private List<String> listManagers;
     private List<Boolean> listWorkersIsVisible;
+    private List<String> positions = new ArrayList<String>();
 
     private List<String> workersOfManager;
 
@@ -67,7 +68,7 @@ public class PersonneBean implements Serializable
         return workersOfManager;
     }
 
-    private List<String> positions = new ArrayList<String>();
+
 
     public List<String> getPositions() {
         for (Worker listWorker : listWorkers) {
@@ -119,11 +120,6 @@ public class PersonneBean implements Serializable
         listWorkersIsVisible.add(true);
     }
 
-
-
-
-
-
     public ServiceImp getServiceImp()
     {
         return serviceImp;
@@ -161,7 +157,13 @@ public class PersonneBean implements Serializable
         System.out.println(worker);
         this.worker = new Worker();
         worker.setPosition(value);
+    }
 
+    public void changePosition(String value)
+    {
+        System.out.println("position = " + value);
+        System.out.println(worker);
+        worker.setPosition(value);
     }
 
 //    public void addEvent(ActionEvent actionEvent)

@@ -130,7 +130,7 @@
                 <p:outputLabel for="datehire" title="Дата принятия на работу сотрудника" value="Дата принятия на работу:" />
                 <p:calendar id="datehire" value="#{personneBean.worker.dateHire}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
 
-                <p:outputLabel for="positionAdd" title="Занимаемая позиция сотрудники" value="Занимаемая позиция:"  />
+                <p:outputLabel for="positionAdd" title="Занимаемая позиция сотрудника" value="Занимаемая позиция:"  />
                 <p:inputText id="positionAdd" value="#{personneBean.worker.position}" alt="Должность сотрудника" required="true" readonly="true" />
 
                 <p:outputLabel for="managerOfWorker" rendered="#{personneBean.worker.position=='Рабочий'}" title="Менеджер рабочего" value="Менеджер рабочего:"  />
@@ -151,28 +151,59 @@
     </h:form>
 
     <h:form id="updatePerson">
-        <p:dialog header="Please update the information" widgetVar="updatePerson" resizable="false" id="updatePersonDialog" modal="true">
+        <p:dialog header="Изменение данных о сотруднике" widgetVar="updatePerson" resizable="false" id="updatePersonDialog" modal="true">
             <p:growl id="growl" showDetail="true" sticky="false" />
             <h:panelGrid id="updatePanel" columns="2" cellpadding="4" style="margin:0 auto;">
 
-                <h:outputLabel for="fioAdd" title="FIO" value="FIO:" style="color: crimson;" />
-                <h:inputText id="fioAdd" value="#{personneBean.worker.fio}"  required="true"/>
+                <p:outputLabel for="fioUpdate" title="ФИО" value="ФИО:" />
+                <p:inputText id="fioUpdate" value="#{personneBean.worker.fio}" alt="Введите ФИО сотрудника, пожалуйста" required="true" />
 
-                <h:outputLabel for="datebirthAdd" title="Date of birth"  value="Date of birth:" style="color: crimson;"/>
+                <p:outputLabel for="datebirthUpdate" title="Дата рождения сотрудника"  value="Дата рождения:" />
+                <p:calendar id="datebirthUpdate" value="#{personneBean.worker.dateBirth}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
 
-                <h:inputText id="datebirthAdd" value="#{personneBean.worker.dateBirth}" required="true">
-                <f:convertDateTime pattern="dd.MM.yyyy"/>
-                </h:inputText>
+                <p:outputLabel for="datehireUpdate" title="Дата принятия на работу сотрудника" value="Дата принятия на работу:" />
+                <p:calendar id="datehireUpdate" value="#{personneBean.worker.dateHire}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
 
-                <h:outputLabel for="datehireAdd" title="Date of hire" value="Date of hire" style="color: crimson;"/>
+                <p:outputLabel for="positionUpdate" title="Занимаемая позиция сотрудника" value="Занимаемая позиция:"  />
+                <!--<p:inputText id="positionUpdate" value="#{personneBean.worker.position}" alt="Должность сотрудника" required="true"  />-->
+                <p:selectOneMenu id="positionUpdate" value="#{personneBean.worker.position}" editable="true" style="width:180px"
+                                 update=":updatePerson:updatePanel" onchange="PF('updatePerson').show()">
+                    <f:selectItems value="#{personneBean.getPositions()}" update=":updatePerson:updatePanel"
+                                   onchange="PF('updatePerson').show()" valueChangeListener="#{personneBean.worker.setPosition("")}"/>
+                </p:selectOneMenu>
 
-                <h:inputText id="datehireAdd" value="#{personneBean.worker.dateHire}" required="true">
-                <f:convertDateTime pattern="dd.MM.yyyy"/>
-                </h:inputText>
+                <p:outputLabel for="managerOfWorkerUpdate" rendered="#{personneBean.worker.position=='Рабочий'}" title="Менеджер рабочего" value="Менеджер рабочего:"  />
+                <p:selectOneMenu id="managerOfWorkerUpdate" rendered="#{personneBean.worker.position=='Рабочий'}" value="#{personneBean.worker.manager}" style="width:180px">
+                    <f:selectItems value="#{personneBean.getListManagers()}" />
+                </p:selectOneMenu>
+
+                <!--labelTemplate="Менеджеры"-->
+
+                <p:outputLabel for="workerOtherUpdate" rendered="#{personneBean.worker.position=='Другой'}" value="Примечание:" title="Примечание по сотруднику 3-ей группы"  style="color: crimson;" />
+                <p:inputTextarea id="workerOtherUpdate" value="#{personneBean.worker.info}" rendered="#{personneBean.worker.position=='Другой'}" title="Примечание по сотруднику 3-ей группы" rows="5" cols="20"  autoResize="false"  />
+
+
+
+
+
+                <!--<h:outputLabel for="fioAdd" title="FIO" value="FIO:" style="color: crimson;" />-->
+                <!--<h:inputText id="fioAdd" value="#{personneBean.worker.fio}"  required="true"/>-->
+
+                <!--<h:outputLabel for="datebirthAdd" title="Date of birth"  value="Date of birth:" style="color: crimson;"/>-->
+
+                <!--<h:inputText id="datebirthAdd" value="#{personneBean.worker.dateBirth}" required="true">-->
+                <!--<f:convertDateTime pattern="dd.MM.yyyy"/>-->
+                <!--</h:inputText>-->
+
+                <!--<h:outputLabel for="datehireAdd" title="Date of hire" value="Date of hire" style="color: crimson;"/>-->
+
+                <!--<h:inputText id="datehireAdd" value="#{personneBean.worker.dateHire}" required="true">-->
+                <!--<f:convertDateTime pattern="dd.MM.yyyy"/>-->
+                <!--</h:inputText>-->
 
             </h:panelGrid>
             <p:separator/>
-            <p:commandButton value="Update" update=":mainForm:mainTable, growl" actionListener="#{personneBean.updatePerson(actionEvent) }"
+            <p:commandButton value="Обновить" update=":mainForm:mainTable, growl" actionListener="#{personneBean.updatePerson(actionEvent) }"
                              oncomplete="PF('updatePerson').hide()"/>
         </p:dialog>
     </h:form>
