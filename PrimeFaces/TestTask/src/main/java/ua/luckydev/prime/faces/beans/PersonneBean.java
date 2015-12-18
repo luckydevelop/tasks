@@ -13,12 +13,14 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.io.Serializable;
 import java.util.*;
 
 @ManagedBean(name = "personneBean")
-//@SessionScoped //?!?!?!?!? //Serialisation
-@ViewScoped
+@SessionScoped //?!?!?!?!? //Serialisation
+//@ViewScoped
 public class PersonneBean implements Serializable
 {
 
@@ -26,12 +28,32 @@ public class PersonneBean implements Serializable
     ServiceImp serviceImp;
     private Worker worker;
     private List<Worker> listWorkers;
+    private List<String> listManagers;
     private List<Boolean> listWorkersIsVisible;
 
     private List<String> workersOfManager;
 
 
-   public List<String> getWorkersOfManagers(String managerFIO)
+    public List<String> getListManagers()
+
+    {
+        listManagers = new ArrayList<String>();
+        for (Worker worker : listWorkers)
+        {
+            if(worker.getPosition().equals("Менеджер")) //enum
+            {
+                listManagers.add(worker.getFio());
+            }
+        }
+        return listManagers;
+    }
+
+    public void setListManagers(List<String> listManagers)
+    {
+        this.listManagers = listManagers;
+    }
+
+    public List<String> getWorkersOfManagers(String managerFIO)
 
     {
         workersOfManager = new ArrayList<String>();
@@ -40,9 +62,7 @@ public class PersonneBean implements Serializable
             if(listWorker.getPosition().equals("Рабочий")&&listWorker.getManager().equals(managerFIO)) //enum
             {
                 workersOfManager.add(listWorker.getFio());
-                System.out.println(listWorker.getFio());
             }
-
         }
         return workersOfManager;
     }
@@ -101,9 +121,7 @@ public class PersonneBean implements Serializable
 
 
 
-    public void onToggle(ToggleEvent e) {
-        listWorkersIsVisible.set((Integer) e.getData(), e.getVisibility() == Visibility.VISIBLE);
-    }
+
 
 
     public ServiceImp getServiceImp()
@@ -137,10 +155,24 @@ public class PersonneBean implements Serializable
     }
 
 
-    public void addEvent(ActionEvent actionEvent)
+    public void addEvent(String value)
     {
+        System.out.println("value = " + value);
+        System.out.println(worker);
         this.worker = new Worker();
+        worker.setPosition(value);
+
     }
+
+//    public void addEvent(ActionEvent actionEvent)
+//    {
+//        String buttonId = actionEvent.getComponent().getClientId();
+//        System.out.println(actionEvent.getComponent());
+//        this.worker = new Worker();
+//        worker.setPosition(buttonId);
+//        System.out.println(worker);
+//        System.out.println("911");
+//    }
 
     public void actionAddWorker(ActionEvent actionEvent)
     {
@@ -162,6 +194,10 @@ public class PersonneBean implements Serializable
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Personne mise ? jour"));
         init();
+    }
+
+    public void onToggle(ToggleEvent e) {
+        listWorkersIsVisible.set((Integer) e.getData(), e.getVisibility() == Visibility.VISIBLE);
     }
 
     public void delete(Worker worker)
