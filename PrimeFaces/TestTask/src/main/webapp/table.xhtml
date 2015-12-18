@@ -151,7 +151,7 @@
     </h:form>
 
     <h:form id="updatePerson">
-        <p:dialog header="Изменение данных о сотруднике" widgetVar="updatePerson" resizable="false" id="updatePersonDialog" modal="true">
+        <p:dialog id="updatePersonDialog" header="Изменение данных о сотруднике" widgetVar="updatePerson" resizable="false"  modal="true">
             <p:growl id="growl" showDetail="true" sticky="false" />
             <h:panelGrid id="updatePanel" columns="2" cellpadding="4" style="margin:0 auto;">
 
@@ -165,41 +165,49 @@
                 <p:calendar id="datehireUpdate" value="#{personneBean.worker.dateHire}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
 
                 <p:outputLabel for="positionUpdate" title="Занимаемая позиция сотрудника" value="Занимаемая позиция:"  />
-                <!--<p:inputText id="positionUpdate" value="#{personneBean.worker.position}" alt="Должность сотрудника" required="true"  />-->
-                <p:selectOneMenu id="positionUpdate" value="#{personneBean.worker.position}" editable="true" style="width:180px"
-                                 update=":updatePerson:updatePanel" onchange="PF('updatePerson').show()">
-                    <f:selectItems value="#{personneBean.getPositions()}" update=":updatePerson:updatePanel"
-                                   onchange="PF('updatePerson').show()" valueChangeListener="#{personneBean.worker.setPosition("")}"/>
+
+                <p:selectOneMenu id="positionUpdate" value="#{personneBean.worker.position}" editable="true" style="width:180px" onchange="PF('updatePerson').show()" update=":updatePerson"   >
+                <p:ajax listener="#{personneBean.changePosition(personneBean.worker.position)}" />
+                <f:selectItems value="#{personneBean.getPositions()}"   />
                 </p:selectOneMenu>
 
-                <p:outputLabel for="managerOfWorkerUpdate" rendered="#{personneBean.worker.position=='Рабочий'}" title="Менеджер рабочего" value="Менеджер рабочего:"  />
-                <p:selectOneMenu id="managerOfWorkerUpdate" rendered="#{personneBean.worker.position=='Рабочий'}" value="#{personneBean.worker.manager}" style="width:180px">
+                <!--<f:ajax event="change" execute="PF('updatePerson').show()" />-->
+
+                <!--<p:inputText id="positionUpdate" value="#{personneBean.worker.position}" alt="Должность сотрудника" required="true"  />-->
+
+                <!--<p:splitButton id="positionUpdate" value="#{personneBean.worker.position}" editable="true" > //icon-->
+                    <!--<p:menuitem value="Рабочий" actionListener="#{personneBean.changePosition('Рабочий')}"  oncomplete="PF('updatePerson').show()"  update=":updatePerson" />-->
+                    <!--<p:menuitem value="Менеджер" actionListener="#{personneBean.changePosition('Менеджер')}"  oncomplete="PF('updatePerson').show()" update=":updatePerson" />-->
+                    <!--<p:menuitem value="Другой сотрудник" actionListener="#{personneBean.changePosition('Другой')}" oncomplete="PF('updatePerson').show()" update=":updatePerson:"/>-->
+                <!--</p:splitButton>-->
+
+                <!--updatePerson:updatePersonDialog:updatePanel-->
+
+
+
+
+
+                <!--<p:selectOneMenu value="#{mymb.employee}" >-->
+                    <!--<p:ajax listener="#{mymb.handleChange}" />-->
+                    <!--<f:selectItems value="#{mymb.employeesList}" var="emp"-->
+                                   <!--itemLabel="#{emp.employeeName}" itemValue="#{emp.employeeID}" />-->
+                <!--</p:selectOneMenu>-->
+
+                <!--<h:selectOneMenu value="#{bean.value}" onchange="submit()">-->
+                    <!--<f:valueChangeListener type="ValueListenerXXX" />-->
+                    <!--<f:selectItems value="#{bean.values}" />-->
+                <!--</h:selectOneMenu>-->
+
+                <p:outputLabel rendered="#{personneBean.worker.position=='Рабочий'}" for="managerOfWorkerUpdate"  title="Менеджер рабочего" value="Менеджер рабочего:"  />
+                <p:selectOneMenu rendered="#{personneBean.worker.position=='Рабочий'}" id="managerOfWorkerUpdate" value="#{personneBean.worker.manager}" style="width:180px">
                     <f:selectItems value="#{personneBean.getListManagers()}" />
                 </p:selectOneMenu>
 
-                <!--labelTemplate="Менеджеры"-->
+                <p:outputLabel rendered="#{(personneBean.worker.position!='Рабочий')and(personneBean.worker.position!='Менеджер')}" for="workerOtherUpdate" value="Примечание:" title="Примечание по сотруднику 3-ей группы"  style="color: crimson;" />
+                <p:inputTextarea rendered="#{(personneBean.worker.position!='Рабочий')and(personneBean.worker.position!='Менеджер')}" id="workerOtherUpdate" value="#{personneBean.worker.info}" title="Примечание по сотруднику 3-ей группы" rows="5" cols="20"  autoResize="false"  />
 
-                <p:outputLabel for="workerOtherUpdate" rendered="#{personneBean.worker.position=='Другой'}" value="Примечание:" title="Примечание по сотруднику 3-ей группы"  style="color: crimson;" />
-                <p:inputTextarea id="workerOtherUpdate" value="#{personneBean.worker.info}" rendered="#{personneBean.worker.position=='Другой'}" title="Примечание по сотруднику 3-ей группы" rows="5" cols="20"  autoResize="false"  />
-
-
-
-
-
-                <!--<h:outputLabel for="fioAdd" title="FIO" value="FIO:" style="color: crimson;" />-->
-                <!--<h:inputText id="fioAdd" value="#{personneBean.worker.fio}"  required="true"/>-->
-
-                <!--<h:outputLabel for="datebirthAdd" title="Date of birth"  value="Date of birth:" style="color: crimson;"/>-->
-
-                <!--<h:inputText id="datebirthAdd" value="#{personneBean.worker.dateBirth}" required="true">-->
-                <!--<f:convertDateTime pattern="dd.MM.yyyy"/>-->
-                <!--</h:inputText>-->
-
-                <!--<h:outputLabel for="datehireAdd" title="Date of hire" value="Date of hire" style="color: crimson;"/>-->
-
-                <!--<h:inputText id="datehireAdd" value="#{personneBean.worker.dateHire}" required="true">-->
-                <!--<f:convertDateTime pattern="dd.MM.yyyy"/>-->
-                <!--</h:inputText>-->
+                <!--rendered="#{personneBean.worker.position=='Рабочий'}"-->
+                <!--rendered="#{personneBean.worker.position=='Другой'}"-->
 
             </h:panelGrid>
             <p:separator/>
