@@ -41,7 +41,7 @@ public class PersonneBean implements Serializable
         listManagers = new ArrayList<String>();
         for (Worker worker : listWorkers)
         {
-            if(worker.getPosition().equals("Менеджер")) //enum
+            if(worker.getPosition().equals("????????")) //enum
             {
                 listManagers.add(worker.getFio());
             }
@@ -60,7 +60,7 @@ public class PersonneBean implements Serializable
         workersOfManager = new ArrayList<String>();
         for (Worker listWorker : listWorkers)
         {
-            if(listWorker.getPosition().equals("Рабочий")&&listWorker.getManager().equals(managerFIO)) //enum
+            if(listWorker.getPosition().equals("???????")&&listWorker.getManager().equals(managerFIO)) //enum
             {
                 workersOfManager.add(listWorker.getFio());
             }
@@ -180,7 +180,7 @@ public class PersonneBean implements Serializable
     {
         addWorker();
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Рабочий добавлен"));
+        context.addMessage(null, new FacesMessage("??????? ????????"));
         init();
         this.worker = new Worker();
     }

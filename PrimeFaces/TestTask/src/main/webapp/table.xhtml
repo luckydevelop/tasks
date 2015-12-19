@@ -18,6 +18,11 @@
               <!--oncomplete="PF('addPerson').show()" />-->
     <!--</h:form>-->
 
+    <h:form id="AddPerson">
+        <p:commandButton id="БумБум" value="Update person" update=":updatePerson"
+                         oncomplete="PF('updatePerson').show();"  />
+    </h:form>
+
     <h:form>
         <p:splitButton value="Добавить сотрудника" > //icon
             <p:menuitem value="Рабочий" actionListener="#{personneBean.addEvent('Рабочий')}" oncomplete="PF('addPerson').show()" update=":addPerson:addPersonDialog" />
@@ -166,20 +171,22 @@
 
                 <p:outputLabel for="positionUpdate" title="Занимаемая позиция сотрудника" value="Занимаемая позиция:"  />
 
-                <p:selectOneMenu id="positionUpdate" value="#{personneBean.worker.position}" editable="true" style="width:180px" onchange="PF('updatePerson').show()" update=":updatePerson"   >
-                <p:ajax listener="#{personneBean.changePosition(personneBean.worker.position)}" />
-                <f:selectItems value="#{personneBean.getPositions()}"   />
+                <p:selectOneMenu id="positionUpdate" value="#{personneBean.worker.position}" editable="true" style="width:180px"  >
+                <p:ajax listener="#{personneBean.changePosition(personneBean.worker.position)}"  oncomplete="PF('updatePerson').show()" update=":updatePerson"    />
+                <f:selectItems value="#{personneBean.getPositions()}"    />
                 </p:selectOneMenu>
+
+                <!--<p:splitButton id="positionUpdate" value="#{personneBean.worker.position}" editable="true" > //icon-->
+                <!--<p:menuitem value="Рабочий" actionListener="#{personneBean.changePosition('Рабочий')}"  oncomplete="PF('updatePerson').show()"  update=":updatePerson" />-->
+                <!--<p:menuitem value="Менеджер" actionListener="#{personneBean.changePosition('Менеджер')}"  oncomplete="PF('updatePerson').show()" update=":updatePerson" />-->
+                <!--<p:menuitem value="Другой сотрудник" actionListener="#{personneBean.changePosition('Другой')}" oncomplete="PF('updatePerson').show()" update=":updatePerson:"/>-->
+                <!--</p:splitButton>-->
+
 
                 <!--<f:ajax event="change" execute="PF('updatePerson').show()" />-->
 
                 <!--<p:inputText id="positionUpdate" value="#{personneBean.worker.position}" alt="Должность сотрудника" required="true"  />-->
 
-                <!--<p:splitButton id="positionUpdate" value="#{personneBean.worker.position}" editable="true" > //icon-->
-                    <!--<p:menuitem value="Рабочий" actionListener="#{personneBean.changePosition('Рабочий')}"  oncomplete="PF('updatePerson').show()"  update=":updatePerson" />-->
-                    <!--<p:menuitem value="Менеджер" actionListener="#{personneBean.changePosition('Менеджер')}"  oncomplete="PF('updatePerson').show()" update=":updatePerson" />-->
-                    <!--<p:menuitem value="Другой сотрудник" actionListener="#{personneBean.changePosition('Другой')}" oncomplete="PF('updatePerson').show()" update=":updatePerson:"/>-->
-                <!--</p:splitButton>-->
 
                 <!--updatePerson:updatePersonDialog:updatePanel-->
 
