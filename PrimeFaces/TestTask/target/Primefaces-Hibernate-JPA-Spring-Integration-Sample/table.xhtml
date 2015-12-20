@@ -172,7 +172,7 @@
                 <p:outputLabel for="positionUpdate" title="Занимаемая позиция сотрудника" value="Занимаемая позиция:"  />
 
                 <p:selectOneMenu id="positionUpdate" value="#{personneBean.worker.position}" editable="true" style="width:180px"  >
-                <p:ajax listener="#{personneBean.changePosition(personneBean.worker.position)}"  oncomplete="PF('updatePerson').show()"   />
+                <p:ajax listener="#{personneBean.changePosition(personneBean.worker.position)}"  oncomplete="PF('updatePerson').show()" update=":updatePerson"    />
                 <f:selectItems value="#{personneBean.getPositions()}"    />
                 </p:selectOneMenu>
 
