@@ -16,13 +16,13 @@ public class ServiceImp implements Serializable
     @PersistenceContext
     private EntityManager em;
 
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
+//    public EntityManager getEm() {
+//        return em;
+//    }
+//
+//    public void setEm(EntityManager em) {
+//        this.em = em;
+//    }
 
     @Transactional
     public void addWorker(Worker worker) {
@@ -48,7 +48,7 @@ public class ServiceImp implements Serializable
         em.remove(toBeRemoved);
     }
 
-    @SuppressWarnings("unchecked")
+ //   @SuppressWarnings("unchecked")
     public List<Worker> listWorkers() {
 
         List<Worker> workerList = em.createQuery("SELECT t FROM Worker t").getResultList();
