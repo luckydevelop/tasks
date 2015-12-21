@@ -10,16 +10,16 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_ID")
+    @Column(name = "id")
     private long id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first")
     private String name;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last")
     private String lastName;
 
-    @Column(name = "age", nullable = false)
+    @Column(name = "age")
     private int age;
 
     public User() {
