@@ -2,17 +2,16 @@ package ua.luckydev.entity;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "worker")
-public class Person implements Serializable // - ????
+@Table(name = "person")
+public class Person  // - ???? implements Serializable
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String fio;
 
@@ -27,11 +26,16 @@ public class Person implements Serializable // - ????
     String info;
 
     @Transient
-    List<Person> listPerson = new ArrayList<>();
+    List<Person> listPersons = new ArrayList<>();
 
     public int getId()
     {
         return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public String getFio()
@@ -94,14 +98,14 @@ public class Person implements Serializable // - ????
         this.info = info;
     }
 
-    public List<Person> getListWorkers()
+    public List<Person> getListPersons()
     {
-        return listPerson;
+        return listPersons;
     }
 
-    public void setListWorkers(List<Person> listWorkers)
+    public void setListPersons(List<Person> listPersons)
     {
-        this.listPerson = listWorkers;
+        this.listPersons = this.listPersons;
     }
 
     @Override

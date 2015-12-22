@@ -45,17 +45,20 @@ public class PersonBean implements Serializable
         {
             listColumnsIsVisible.add(true);
         }
-
-
     }
 
-    
+    public void updateListPersons()
+    {
+        listPersons.clear();
+        listPersons.addAll(personDAO.listPersons());
+    }
+
     public List<String> getListManagers()
     {
         listManagers = new ArrayList<String>();
         for (Person person : listPersons)
         {
-            if(person.getPosition().equals("Менеджер")) //enum
+            if(person.getPosition().equals("Менеджер")&&(!person.getFio().equals(this.person.getFio()))) //enum
             {
                 listManagers.add(person.getFio());
             }
@@ -63,23 +66,23 @@ public class PersonBean implements Serializable
         return listManagers;
     }
 
-    public List<String> getWorkersOfManagers(String managerFIO)
+    public List<String> getWorkersOfManager(String managerFIO)
 
     {
         workersOfManager = new ArrayList<String>();
-        for (Person listWorker : listPersons)
+        for (Person listPerson : listPersons)
         {
-            if(listWorker.getPosition().equals("Рабочий")&&listWorker.getManager().equals(managerFIO)) //enum
+            if(listPerson.getPosition().equals("Рабочий")&&listPerson.getManager().equals(managerFIO)) //enum
             {
-                workersOfManager.add(listWorker.getFio());
+                workersOfManager.add(listPerson.getFio());
             }
         }
         return workersOfManager;
     }
 
     public List<String> getPositions() {  //Рабочий и менеджер надо чтобы были вверху
-        for (Person listWorker : listPersons) {
-            String pos = listWorker.getPosition();
+        for (Person listPerson : listPersons) {
+            String pos = listPerson.getPosition();
 
             if(!listPositions.contains(pos))
             {
@@ -90,11 +93,11 @@ public class PersonBean implements Serializable
         return listPositions;
     }
 
-    public List<Boolean> getListWorkersIsVisible() {
+    public List<Boolean> getListColumnsIsVisible() {
         return listColumnsIsVisible;
     }
 
-    public PersonDAO getPersonEntityDAO()  //проверить надо ли
+    public PersonDAO getPersonDAO()  //проверить надо ли
     {
         return personDAO;
     }
@@ -114,7 +117,7 @@ public class PersonBean implements Serializable
         this.person = person;
     }
 
-    public List<Person> getlistPersons()
+    public List<Person> getListPersons()
     {
         return listPersons;
     }
@@ -131,55 +134,49 @@ public class PersonBean implements Serializable
         person.setPosition(value);
     }
 
-
-    public void actionAddWorker(ActionEvent actionEvent)
+    public void addPerson()
     {
-        addPerson();
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Add person"));
-        init();
-        this.person = new Person();
+        personDAO.addPerson(person); //дублирование убрать
+        // Add message
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage("Успешно!", "Сотрудник " + this.person.getFio() + " добавлен в БД"));
+        updateListPersons();
     }
 
-    public void editeEvent(int id)
+    public void getPersonById(int id)
     {
         this.person = personDAO.getPerson(id); //без this тоже можно
     }
 
-    public void updatePerson(ActionEvent actionEvent)
+    public void updatePerson()
     {
+        if((person.getPosition().equals("Рабочий"))||(person.getPosition().equals("Менеджер")) ) //Enum
+        {
+            person.setInfo(null);
+        }
+
+        if((!person.getPosition().equals("Рабочий")))
+        {
+            person.setManager(null);
+        }
+
         personDAO.updatePerson(person);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Personne mise ? jour")); //сообщения зачесать
-        init();
-    }
-
-    public void onToggle(ToggleEvent e) {
-        listColumnsIsVisible.set((Integer) e.getData(), e.getVisibility() == Visibility.VISIBLE);
+        context.addMessage(null, new FacesMessage("Успешно!", "Данные по сотруднику "+person.getFio()+" обновлены"));
+        updateListPersons();
     }
 
     public void delete(Person person)
     {
-        System.out.println(person);
         personDAO.deletePerson(person);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Personne supprim?")); //сообщения зачесать
-        init();
+        context.addMessage(null, new FacesMessage("Успешно!","Сотрудник "+person.getFio()+" удалён из БД")); //сообщения зачесать
+        updateListPersons();
     }
 
-    public String addPerson()
-    {
-        // Calling Business Service
-        personDAO.addPerson(person); //дублирование убрать
-        // Add message
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage("The Employee " + this.person.getFio() + " Is Registered Successfully"));
-        return ""; //почему Стринг - ?!?!?!
+    //для корректной работы функции выбора столбцов
+    public void onToggle(ToggleEvent e) {
+        listColumnsIsVisible.set((Integer) e.getData(), e.getVisibility() == Visibility.VISIBLE);
     }
 
-    public void deletMessage(ActionEvent actionEvent)
-    {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Personne supprim?"));
-    }
 }

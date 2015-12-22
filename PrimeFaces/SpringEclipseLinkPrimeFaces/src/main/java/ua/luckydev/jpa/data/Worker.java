@@ -23,7 +23,7 @@ public class Worker  {
     String info;
 
     @Transient
-    List<Person> listWorkers = new ArrayList<>();
+    List<Worker> listWorkers = new ArrayList<>();
 
 
     public String getManager()
@@ -36,12 +36,12 @@ public class Worker  {
         this.manager = manager;
     }
 
-    public List<Person> getListWorkers()
+    public List<Worker> getListWorkers()
     {
         return listWorkers;
     }
 
-    public void setListWorkers(List<Person> listWorkers)
+    public void setListWorkers(List<Worker> listWorkers)
     {
         this.listWorkers = listWorkers;
     }
