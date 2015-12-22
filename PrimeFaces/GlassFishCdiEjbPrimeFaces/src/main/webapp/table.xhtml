@@ -82,8 +82,45 @@
             </p:column>
         </p:dataTable>
 
-
     </h:form>
+
+
+    <h:form id="addUpdatePerson">
+        <p:dialog id="addUpdatePersonDialog" widgetVar="addUpdatePerson" header="Изменение данных о сотруднике" resizable="false"  modal="true">
+            <p:growl id="growl" showDetail="true" sticky="false" />
+            <h:panelGrid id="addUpdatePersonPanel" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                <p:outputLabel for="fioUpdate" title="ФИО" value="ФИО:" />
+                <p:inputText id="fioUpdate" value="#{personBean.person.fio}" alt="Введите ФИО сотрудника, пожалуйста" required="true" />
+
+                <p:outputLabel for="positionUpdate" title="Занимаемая позиция сотрудника" value="Занимаемая позиция:"  />
+
+                <p:selectOneMenu id="positionUpdate" value="#{personBean.person.position}" editable="true" style="width:180px"  >
+                    <p:ajax listener="#{personBean.changePosition(personBean.person.position)}"  oncomplete="PF('updatePerson').show()" update=":updatePerson"    />
+                    <f:selectItems value="#{personBean.getPositions()}"    />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="datebirthUpdate" title="Дата рождения сотрудника"  value="Дата рождения:" />
+                <p:calendar id="datebirthUpdate" value="#{personBean.person.dateBirth}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+
+                <p:outputLabel for="datehireUpdate" title="Дата принятия на работу сотрудника" value="Дата принятия на работу:" />
+                <p:calendar id="datehireUpdate" value="#{personBean.person.dateHire}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+
+                <p:outputLabel rendered="#{personBean.person.position=='Рабочий'}" for="managerOfWorkerUpdate"  title="Менеджер рабочего" value="Менеджер рабочего:"  />
+                <p:selectOneMenu rendered="#{personBean.person.position=='Рабочий'}" id="managerOfWorkerUpdate" value="#{personBean.person.manager}" style="width:180px">
+                    <f:selectItems value="#{personBean.getListManagers()}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel rendered="#{(personBean.person.position!='Рабочий')and(personBean.person.position!='Менеджер')}" for="workerOtherUpdate" value="Примечание:" title="Примечание по сотруднику 3-ей группы"  style="color: crimson;" />
+                <p:inputTextarea rendered="#{(personBean.person.position!='Рабочий')and(personBean.person.position!='Менеджер')}" id="workerOtherUpdate" value="#{personBean.person.info}" title="Примечание по сотруднику 3-ей группы" rows="5" cols="20"  autoResize="false"  />
+
+            </h:panelGrid>
+            <p:separator/>
+            <p:commandButton value="Обновить" update=":mainForm:mainTable, growl" actionListener="#{personBean.updatePerson()}"
+                             oncomplete="PF('updatePerson').hide()"/>
+        </p:dialog>
+    </h:form>
+
 
     <h:form id="addPerson">
 
@@ -149,9 +186,6 @@
 
                 <p:outputLabel rendered="#{(personBean.person.position!='Рабочий')and(personBean.person.position!='Менеджер')}" for="workerOtherUpdate" value="Примечание:" title="Примечание по сотруднику 3-ей группы"  style="color: crimson;" />
                 <p:inputTextarea rendered="#{(personBean.person.position!='Рабочий')and(personBean.person.position!='Менеджер')}" id="workerOtherUpdate" value="#{personBean.person.info}" title="Примечание по сотруднику 3-ей группы" rows="5" cols="20"  autoResize="false"  />
-
-                <!--rendered="#{personneBean..position=='Рабочий'}"-->
-                <!--rendered="#{personneBean..position=='Другой'}"-->
 
             </h:panelGrid>
             <p:separator/>
