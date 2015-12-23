@@ -1,2 +1,3 @@
-ua\luckydev\ejb\PersonEntityEJB.class
-ua\luckydev\entity\PersonEntity.class
+ua\luckydev\bean\PersonBean.class
+ua\luckydev\entity\Person.class
+ua\luckydev\dao\PersonDAO.class

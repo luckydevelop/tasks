@@ -1,0 +1,227 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+    <title>Test Task</title>
+    <!--<link rel="stylesheet" href="css/style.css "/>-->
+</h:head>
+<h:body>
+
+
+    <h1>Тестовое задание - "Создать список персонала фирмы"</h1>
+    <!--<h:form id="AddPerson">-->
+         <!--&lt;!&ndash;<p:commandButton value="Добавить сотрудника" update=":addPerson:addPersonDialog" actionListener="#{personneBean.addEvent(actionEvent)}"&ndash;&gt;-->
+         <!--<p:commandButton id="БумБум" value="Добавить сотрудника" update=":addPerson:addPersonDialog" actionListener="#{personneBean.addEvent(actionEvent)}"-->
+              <!--oncomplete="PF('addPerson').show()" />-->
+    <!--</h:form>-->
+
+    <h:form id="AddPerson">
+        <p:commandButton id="БумБум" value="Update person" update=":updatePerson"
+                         oncomplete="PF('updatePerson').show();"  />
+    </h:form>
+
+    <h:form>
+        <p:splitButton value="Добавить сотрудника" > //icon
+            <p:menuitem value="Рабочий" actionListener="#{personneBean.addEvent('Рабочий')}" oncomplete="PF('addPerson').show()" update=":addPerson:addPersonDialog" />
+            <p:menuitem value="Менеджер" actionListener="#{personneBean.addEvent('Менеджер')}" oncomplete="PF('addPerson').show()" update=":addPerson:addPersonDialog" />
+            <p:menuitem value="Другой сотрудник" actionListener="#{personneBean.addEvent('Другой')}" oncomplete="PF('addPerson').show()" update=":addPerson:addPersonDialog"/>
+        </p:splitButton>
+    </h:form>
+
+
+
+    <!--<h:form id="AddPersonNew">-->
+        <!--<p:outputLabel for="console" value="Доавить нового сотрудника:" />-->
+        <!--&lt;!&ndash;<p:selectOneMenu id="console" value="#{selectOneMenuView.console}" onchange="PF('addPerson').show()" style="width:125px" label="Доавить сотрудника" valueChangeListener="">&ndash;&gt;-->
+        <!--<p:selectOneMenu id="console"  style="width:125px" label="Доавить сотрудника" >-->
+        <!--&lt;!&ndash;<p:selectOneMenu id="console" valueChangeListener="#{personneBean.addEvent(actionEvent)}"  update=":addPerson:addPersonDialog" value="#{personneBean.worker.position}" onchange="PF('addPerson').show()" style="width:125px" label="Доавить сотрудника" >&ndash;&gt;-->
+            <!--<f:selectItem itemLabel="Менеджер" itemValue="Менеджер" oncomplete="PF('addPerson').show()" actionListener="#{personneBean.addEvent('Менеджер')}" />-->
+            <!--<f:selectItem itemLabel="Рабочий" itemValue="Рабочий" oncomplete="PF('addPerson').show()" actionListener="#{personneBean.addEvent('Рабочий')}"/>-->
+            <!--<f:selectItem itemLabel="Другой сотрудник" itemValue="" oncomplete="PF('addPerson').show()" actionListener="#{personneBean.addEvent('Другой')}"/>-->
+        <!--</p:selectOneMenu>-->
+    <!--</h:form>-->
+
+    <!--<p:outputLabel for="console" value="Basic:" />-->
+    <!--<p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="width:125px">-->
+        <!--<f:selectItem itemLabel="Select One" itemValue=""  />-->
+        <!--<f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />-->
+        <!--<f:selectItem itemLabel="PS4" itemValue="PS4" />-->
+        <!--<f:selectItem itemLabel="Wii U" itemValue="Wii U" />-->
+    <!--</p:selectOneMenu>-->
+
+
+    <br/>
+    <h:form id="mainForm">
+        <p:growl id="growl" showDetail="true" sticky="false"  />
+
+        <p:dataTable id="mainTable" var="worker" value="#{personneBean.listWorkers}"  widgetVar="PersonneTable"
+                     emptyMessage="Рабочих не найдено" paginator="true" rows="15" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15" style="width:1000px;font-size:13px;margin-left: 150px" sortBy="#{worker.fio}" >
+
+            <f:facet name="header">
+              СОТРУДНИКИ
+
+                <p:commandButton id="toggle" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                <p:columnToggler datasource="mainTable" trigger="toggle">
+                    <p:ajax event="toggle" listener="#{personneBean.onToggle}" />
+                </p:columnToggler>
+            </f:facet>
+
+            <p:column visible="#{personneBean.listWorkersIsVisible[0]}" headerText="ФИО" id="fioCol" sortBy="#{worker.fio}" filterBy="#{worker.fio}"  filterMatchMode="exact" width="250"  >
+                <h:outputText value="#{worker.fio}"   />
+            </p:column>
+
+            <p:column visible="#{personneBean.listWorkersIsVisible[1]}"   headerText="Дата рождения" id="birthDate" sortBy="#{worker.dateBirth}" filterBy="#{worker.dateBirth}" filterMatchMode="exact">
+                <h:outputText value="#{worker.dateBirth}">
+                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </h:outputText>
+            </p:column>
+            <p:column visible="#{personneBean.listWorkersIsVisible[2]}" headerText="Дата трудоуст." id="bhirehDate" sortBy="#{worker.dateHire}" filterBy="#{worker.dateHire}" filterMatchMode="exact">
+                <h:outputText value="#{worker.dateHire}">
+                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                </h:outputText>
+            </p:column>
+
+            <p:column visible="#{personneBean.listWorkersIsVisible[3]}" filterBy="#{worker.position}" headerText="Позиция"  filterMatchMode="in" >
+                <f:facet name="filter" >
+                    <p:selectCheckboxMenu label="Позиции" onchange="PF('PersonneTable').filter()" panelStyle="width:125px" scrollHeight="150" >
+                        <f:selectItems value="#{personneBean.positions}"  />
+                    </p:selectCheckboxMenu>
+                </f:facet>
+                <h:outputText  value="#{worker.position}" />
+            </p:column>
+
+            <p:column visible="#{personneBean.listWorkersIsVisible[4]}" headerText="Доп. информация" id="infoColumn" width="180">
+
+                <h:outputText rendered="#{worker.position=='Рабочий'}"  value="#{worker.manager}"/>
+
+                <p:selectOneMenu rendered="#{worker.position=='Менеджер'}" labelTemplate="Рабочии менеджера" style="width:180px" >
+                    <f:selectItems value="#{personneBean.getWorkersOfManagers(worker.fio)}" />
+                    <!--<f:selectItems value="#{selectOneMenuView.cars}" />-->
+                </p:selectOneMenu>
+
+                <p:inputTextarea rendered="#{(worker.position!='Рабочий') and (worker.position!='Менеджер')}" value="#{worker.info}" title="Описание сотрудника 3-ий группы" rows="5" cols="20" readonly="true" autoResize="false"  />
+            </p:column>
+
+            <p:column visible="#{personneBean.listWorkersIsVisible[5]}" headerText="Изменить" width="70">
+                <p:commandButton id="updatePersonCol" update=":updatePerson:updatePanel" icon="ui-icon-arrowrefresh-1-w"
+                                 oncomplete="PF('updatePerson').show();" actionListener="#{personneBean.editeEvent(worker.id)}" title="Update"/>
+            </p:column>
+
+            <p:column visible="#{personneBean.listWorkersIsVisible[6]}" headerText="Удалить" width="70">
+                <p:commandButton id="deletePersonCol"  update=":mainForm:mainTable, :mainForm:growl" icon="ui-icon-trash" action="#{personneBean.delete(worker)}"  title="Delete"/>
+            </p:column>
+        </p:dataTable>
+
+
+    </h:form>
+
+    <h:form id="addPerson">
+
+        <p:dialog id="addPersonDialog" header="Добавьте нового сотрудника" widgetVar="addPerson" resizable="false"  modal="true" >
+
+            <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+            <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                <p:outputLabel for="fio" title="ФИО" value="ФИО:" />
+                <p:inputText id="fio" value="#{personneBean.worker.fio}" alt="Введите ФИО сотрудника, пожалуйста" required="true" />
+
+                <p:outputLabel for="datebirth" title="Дата рождения сотрудника"  value="Дата рождения:" />
+                <p:calendar id="datebirth" value="#{personneBean.worker.dateBirth}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+
+                <p:outputLabel for="datehire" title="Дата принятия на работу сотрудника" value="Дата принятия на работу:" />
+                <p:calendar id="datehire" value="#{personneBean.worker.dateHire}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+
+                <p:outputLabel for="positionAdd" title="Занимаемая позиция сотрудника" value="Занимаемая позиция:"  />
+                <p:inputText id="positionAdd" value="#{personneBean.worker.position}" alt="Должность сотрудника" required="true" readonly="true" />
+
+                <p:outputLabel for="managerOfWorker" rendered="#{personneBean.worker.position=='Рабочий'}" title="Менеджер рабочего" value="Менеджер рабочего:"  />
+                <p:selectOneMenu id="managerOfWorker" rendered="#{personneBean.worker.position=='Рабочий'}" itemLabel="Select One" itemValue="" value="#{personneBean.worker.manager}">
+                    <f:selectItems value="#{personneBean.getListManagers()}" />
+                </p:selectOneMenu>
+
+                <!--labelTemplate="Менеджеры"-->
+
+                <p:outputLabel for="workerOther" rendered="#{personneBean.worker.position=='Другой'}" value="Примечание:" title="Примечание по сотруднику 3-ей группы"  style="color: crimson;" />
+                <p:inputTextarea id="workerOther" value="#{personneBean.worker.info}" rendered="#{personneBean.worker.position=='Другой'}" title="Примечание по сотруднику 3-ей группы" rows="5" cols="20"  autoResize="false"  />
+
+            </h:panelGrid>
+            <p:separator/>
+            <p:commandButton value="Добавить" update=":mainForm:mainTable, growl" actionListener="#{personneBean.actionAddWorker(actionEvent)}"
+                             oncomplete="PF('addPerson').hide()"  />
+        </p:dialog>
+    </h:form>
+
+    <h:form id="updatePerson">
+        <p:dialog id="updatePersonDialog" header="Изменение данных о сотруднике" widgetVar="updatePerson" resizable="false"  modal="true">
+            <p:growl id="growl" showDetail="true" sticky="false" />
+            <h:panelGrid id="updatePanel" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                <p:outputLabel for="fioUpdate" title="ФИО" value="ФИО:" />
+                <p:inputText id="fioUpdate" value="#{personneBean.worker.fio}" alt="Введите ФИО сотрудника, пожалуйста" required="true" />
+
+                <p:outputLabel for="datebirthUpdate" title="Дата рождения сотрудника"  value="Дата рождения:" />
+                <p:calendar id="datebirthUpdate" value="#{personneBean.worker.dateBirth}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+
+                <p:outputLabel for="datehireUpdate" title="Дата принятия на работу сотрудника" value="Дата принятия на работу:" />
+                <p:calendar id="datehireUpdate" value="#{personneBean.worker.dateHire}" locale="ru" navigator="true" pattern="dd-MM-yyyy"/>
+
+                <p:outputLabel for="positionUpdate" title="Занимаемая позиция сотрудника" value="Занимаемая позиция:"  />
+
+                <p:selectOneMenu id="positionUpdate" value="#{personneBean.worker.position}" editable="true" style="width:180px"  >
+                <p:ajax listener="#{personneBean.changePosition(personneBean.worker.position)}"  oncomplete="PF('updatePerson').show()" update=":updatePerson"    />
+                <f:selectItems value="#{personneBean.getPositions()}"    />
+                </p:selectOneMenu>
+
+                <!--<p:splitButton id="positionUpdate" value="#{personneBean.worker.position}" editable="true" > //icon-->
+                <!--<p:menuitem value="Рабочий" actionListener="#{personneBean.changePosition('Рабочий')}"  oncomplete="PF('updatePerson').show()"  update=":updatePerson" />-->
+                <!--<p:menuitem value="Менеджер" actionListener="#{personneBean.changePosition('Менеджер')}"  oncomplete="PF('updatePerson').show()" update=":updatePerson" />-->
+                <!--<p:menuitem value="Другой сотрудник" actionListener="#{personneBean.changePosition('Другой')}" oncomplete="PF('updatePerson').show()" update=":updatePerson:"/>-->
+                <!--</p:splitButton>-->
+
+
+                <!--<f:ajax event="change" execute="PF('updatePerson').show()" />-->
+
+                <!--<p:inputText id="positionUpdate" value="#{personneBean.worker.position}" alt="Должность сотрудника" required="true"  />-->
+
+
+                <!--updatePerson:updatePersonDialog:updatePanel-->
+
+
+
+
+
+                <!--<p:selectOneMenu value="#{mymb.employee}" >-->
+                    <!--<p:ajax listener="#{mymb.handleChange}" />-->
+                    <!--<f:selectItems value="#{mymb.employeesList}" var="emp"-->
+                                   <!--itemLabel="#{emp.employeeName}" itemValue="#{emp.employeeID}" />-->
+                <!--</p:selectOneMenu>-->
+
+                <!--<h:selectOneMenu value="#{bean.value}" onchange="submit()">-->
+                    <!--<f:valueChangeListener type="ValueListenerXXX" />-->
+                    <!--<f:selectItems value="#{bean.values}" />-->
+                <!--</h:selectOneMenu>-->
+
+                <p:outputLabel rendered="#{personneBean.worker.position=='Рабочий'}" for="managerOfWorkerUpdate"  title="Менеджер рабочего" value="Менеджер рабочего:"  />
+                <p:selectOneMenu rendered="#{personneBean.worker.position=='Рабочий'}" id="managerOfWorkerUpdate" value="#{personneBean.worker.manager}" style="width:180px">
+                    <f:selectItems value="#{personneBean.getListManagers()}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel rendered="#{(personneBean.worker.position!='Рабочий')and(personneBean.worker.position!='Менеджер')}" for="workerOtherUpdate" value="Примечание:" title="Примечание по сотруднику 3-ей группы"  style="color: crimson;" />
+                <p:inputTextarea rendered="#{(personneBean.worker.position!='Рабочий')and(personneBean.worker.position!='Менеджер')}" id="workerOtherUpdate" value="#{personneBean.worker.info}" title="Примечание по сотруднику 3-ей группы" rows="5" cols="20"  autoResize="false"  />
+
+                <!--rendered="#{personneBean.worker.position=='Рабочий'}"-->
+                <!--rendered="#{personneBean.worker.position=='Другой'}"-->
+
+            </h:panelGrid>
+            <p:separator/>
+            <p:commandButton value="Обновить" update=":mainForm:mainTable, growl" actionListener="#{personneBean.updatePerson(actionEvent) }"
+                             oncomplete="PF('updatePerson').hide()"/>
+        </p:dialog>
+    </h:form>
+
+</h:body>
+</html>
